@@ -1,1 +1,4 @@
-console.log('\'Allo \'Allo!');
+$('#external-networks a').tooltip({
+  placement: 'bottom',
+  title: 'bob'
+});

@@ -1,29 +1,85 @@
+*, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
 body {
-    background: #fafafa;
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    background: #f5f5f5;
+    font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     color: #333;
 }
 
-.hero-unit {
-    margin: 50px auto 0 auto;
-    width: 300px;
-    font-size: 18px;
-    font-weight: 200;
-    line-height: 30px;
-    background-color: #eee;
-    border-radius: 6px;
-    padding: 60px;
+.container {
+    width: 360px;
+    text-align: center;
+
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 360px;
 }
 
-.hero-unit h1 {
-    font-size: 60px;
-    line-height: 1;
-    letter-spacing: -1px;
+h1 {
+    font-family: 'Rock Salt', cursive;
+    font-weight: bold;
+    font-size: 52px;
+    line-height: 54px;
+    margin: 0;
 }
 
-.browsehappy {
-    margin: 0.2em 0;
-    background: #ccc;
+.splash-image {
+    margin: 0.67em auto;
+    display: block;
+    position: relative;
+}
+
+.splash-image,
+.profile-picture {
+    border-radius: 100%;
+    width: 150px;
+    height: 150px;
+}
+
+.profile-picture {
+    background-image: url('/images/harrywolff.jpg');
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: 0 0;
+    border: 1px solid #ddd;
+}
+
+.splash-image span {
+    display: none;
+    font-size: 38px;
+    font-weight: bold;
     color: #000;
-    padding: 0.2em 0;
+    position: absolute;
+    right: 0;
+    bottom: 10%;
+    left: 0;
+    margin: auto;
+}
+
+.splash-image:hover span {
+    display: block;
+}
+
+.splash-image:hover .profile-picture {
+    opacity: 0.4;
+    border: 1px solid #666;
+    background-image: url('/images/harrywolff-hover.jpg');
+}
+
+.external-networks a {
+    display: inline-block;
+}
+
+.external-networks a,
+.external-networks a img {
+    width: 34px;
+    height: 34px;
 }
