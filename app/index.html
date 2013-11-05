@@ -8,6 +8,7 @@
         <meta name="keywords" content="javascript, frontend, code, tutorial, review, technology, writing, blog, personal, music" />
         <meta name="viewport" content="width=device-width">
         <link rel='stylesheet' id='google-web-font-rock-salt-css'  href='http://fonts.googleapis.com/css?family=Rock+Salt' type='text/css' media='all' />
+        <script type="text/javascript">var _sf_startpt=(new Date()).getTime()</script>
 
         <!-- build:css(.tmp) styles/main.css -->
         <link rel="stylesheet" href="styles/normalize.css">
@@ -51,12 +52,34 @@
             e=o.createElement(i);r=o.getElementsByTagName(i)[0];
             e.src='//www.google-analytics.com/analytics.js';
             r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-            ga('create','UA-XXXXX-X');ga('send','pageview');
+            ga('create','UA-12625863-1');ga('send','pageview');
         </script>
 
         <!-- build:js scripts/main.js -->
         <script src="scripts/twitter-tooltip.js"></script>
         <script src="scripts/main.js"></script>
         <!-- endbuild -->
+
+        <script type="text/javascript">
+        var _sf_async_config={};
+        _sf_async_config.uid = 47740;
+        _sf_async_config.useCanonical = true;
+
+        (function(){
+          function loadChartbeat() {
+            window._sf_endpt=(new Date()).getTime();
+            var e = document.createElement('script');
+            e.setAttribute('language', 'javascript');
+            e.setAttribute('type', 'text/javascript');
+            e.setAttribute('src',
+               (("https:" == document.location.protocol) ? "https://" : "http://") +
+               "static.chartbeat.com/js/chartbeat.js");
+            document.body.appendChild(e);
+          }
+          var oldonload = window.onload;
+          window.onload = (typeof window.onload != 'function') ?
+             loadChartbeat : function() { try { oldonload(); } catch (e) { loadChartbeat(); throw e} loadChartbeat(); };
+        })();
+        </script>
 </body>
 </html>
