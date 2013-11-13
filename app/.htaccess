@@ -30,6 +30,11 @@
     RewriteCond %{REQUEST_URI} !^/images/(.*)$ [NC]
     RewriteCond %{REQUEST_URI} !^/scripts/(.*)$ [NC]
     RewriteCond %{REQUEST_URI} !^/styles/(.*)$ [NC]
+    RewriteCond %{REQUEST_URI} !^/bringthesalsa/?(.*)$ [NC]
+    RewriteCond %{REQUEST_URI} !^/fmn/?(.*)$ [NC]
+    RewriteCond %{REQUEST_URI} !^/jot/?(.*)$ [NC]
+    RewriteCond %{REQUEST_URI} !^/muffin-quest/?(.*)$ [NC]
+    RewriteCond %{REQUEST_URI} !^/paywall/?(.*)$ [NC]
 
     RewriteRule ^(.*)$ http://blog.harrywolff.com/$1 [R=301,L]
 
