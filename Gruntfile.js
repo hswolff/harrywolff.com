@@ -28,6 +28,15 @@ module.exports = function (grunt) {
         files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
         tasks: ['copy:styles', 'autoprefixer']
       },
+      express: {
+        // Restart any time client or server js files change
+        files:  ['server/**/*.js'],
+        tasks:  ['express:server'],
+        options: {
+          //Without this option specified express won't be reloaded
+          nospawn: true
+        }
+      },
       livereload: {
         options: {
           livereload: '<%= connect.options.livereload %>'
@@ -70,6 +79,16 @@ module.exports = function (grunt) {
           open: true,
           base: '<%= yeoman.dist %>',
           livereload: false
+        }
+      }
+    },
+    express: {
+      options: {
+        background: true,
+      },
+      server: {
+        options: {
+          script: 'server/app.js'
         }
       }
     },
