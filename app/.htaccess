@@ -17,29 +17,6 @@
 # Also, some cloud hosting services require `RewriteBase` to be set:
 # http://www.rackspace.com/knowledge_center/frequently-asked-question/why-is-mod-rewrite-not-working-on-my-site
 
-<IfModule mod_rewrite.c>
-    Options +FollowSymlinks
-  # Options +SymLinksIfOwnerMatch
-    RewriteEngine On
-    RewriteBase /
-
-
-    # Handle old wordpress blog redirects
-    RewriteCond %{REQUEST_URI} !^/?$ [NC]
-    RewriteCond %{REQUEST_URI} !^/favicon.ico$ [NC]
-    RewriteCond %{REQUEST_URI} !^/images/(.*)$ [NC]
-    RewriteCond %{REQUEST_URI} !^/scripts/(.*)$ [NC]
-    RewriteCond %{REQUEST_URI} !^/styles/(.*)$ [NC]
-    RewriteCond %{REQUEST_URI} !^/bringthesalsa/?(.*)$ [NC]
-    RewriteCond %{REQUEST_URI} !^/fmn/?(.*)$ [NC]
-    RewriteCond %{REQUEST_URI} !^/jot/?(.*)$ [NC]
-    RewriteCond %{REQUEST_URI} !^/muffin-quest/?(.*)$ [NC]
-    RewriteCond %{REQUEST_URI} !^/paywall/?(.*)$ [NC]
-
-    RewriteRule ^(.*)$ http://blog.harrywolff.com/$1 [R=301,L]
-
-</IfModule>
-
 # ##############################################################################
 # # ERRORS                                                                     #
 # ##############################################################################
