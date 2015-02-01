@@ -102,14 +102,43 @@ gulp.task('wiredep', function () {
     .pipe(gulp.dest('app'));
 });
 
-gulp.task('watch', ['connect'], function () {
+gulp.task('webpack', function(cb) {
+  var started = false;
+  var config = require('./webpack.config')(false);
+  var bundler = require('webpack')(config);
+
+  var watch = true;
+
+  function bundle(err, stats) {
+    if (err) {
+      throw new $.util.PluginError('webpack', err);
+    }
+
+    // if (argv.verbose) {
+    //   $.util.log('[webpack]', stats.toString({colors: true}));
+    // }
+
+    if (!started) {
+      started = true;
+      return cb();
+    }
+  }
+
+  if (watch) {
+    bundler.watch(200, bundle);
+  } else {
+    bundler.run(bundle);
+  }
+});
+
+gulp.task('watch', ['connect', 'webpack'], function () {
   $.livereload.listen();
 
   // watch for changes
   gulp.watch([
     'app/*.html',
     '.tmp/styles/**/*.css',
-    'app/scripts/**/*.js',
+    '.tmp/scripts/**/*.js',
     'app/images/**/*'
   ]).on('change', $.livereload.changed);
 

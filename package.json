@@ -10,6 +10,8 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "6to5": "^2.13.3",
+    "6to5-loader": "^2.0.0",
     "apache-server-configs": "^2.7.1",
     "connect": "^3.0.1",
     "connect-livereload": "^0.5.0",
@@ -36,6 +38,7 @@
     "opn": "^1.0.0",
     "serve-index": "^1.1.4",
     "serve-static": "^1.4.0",
+    "webpack": "^1.4.15",
     "wiredep": "^2.0.0"
   }
 }
