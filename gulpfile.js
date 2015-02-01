@@ -5,6 +5,7 @@ var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 
 gulp.task('styles', function () {
+  return;
   return gulp.src('app/styles/main.scss')
     .pipe($.plumber())
     .pipe($.rubySass({
@@ -114,9 +115,10 @@ gulp.task('webpack', function(cb) {
       throw new $.util.PluginError('webpack', err);
     }
 
-    // if (argv.verbose) {
-    //   $.util.log('[webpack]', stats.toString({colors: true}));
-    // }
+    $.util.log('[webpack]', stats.toString({
+      colors: true,
+      reasons: false
+    }));
 
     if (!started) {
       started = true;

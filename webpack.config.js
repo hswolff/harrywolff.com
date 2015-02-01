@@ -1,25 +1,17 @@
-/*!
- * Facebook React Starter Kit | https://github.com/kriasoft/react-starter-kit
- * Copyright (c) KriaSoft, LLC. All rights reserved. See LICENSE.txt
- */
-
 'use strict';
 
 var webpack = require('webpack');
 var path = require('path');
 
 /**
- * Get configuration for Webpack
- *
- * @see http://webpack.github.io/docs/configuration
- *      https://github.com/petehunt/webpack-howto
+ * Get configuration for Webpack.
  *
  * @param {boolean} release True if configuration is intended to be used in
  * a release mode, false otherwise
  * @return {object} Webpack configuration
  */
 module.exports = function(release) {
-  return {
+  var config = {
     entry: './app/scripts/main.js',
 
     output: {
@@ -28,47 +20,34 @@ module.exports = function(release) {
       publicPath: './tmp/'
     },
 
-    cache: !release,
-    debug: !release,
+    cache: false,
+    debug: false,
     devtool: false,
 
-    stats: {
-      colors: true,
-      reasons: !release
-    },
-
-    plugins: release ? [
-      new webpack.DefinePlugin({
-        'process.env.NODE_ENV': '"production"',
-        '__DEV__': false
-      }),
-      new webpack.optimize.DedupePlugin(),
-      new webpack.optimize.UglifyJsPlugin(),
-      new webpack.optimize.OccurenceOrderPlugin(),
-      new webpack.optimize.AggressiveMergingPlugin()
-    ] : [
-      new webpack.DefinePlugin({'__DEV__': true}),
-      // new webpack.ResolverPlugin(
-      //   new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])
-      // )
-
-      // new webpack.ProvidePlugin({
-      //     $: 'jquery',
-      //     jQuery: 'jquery',
-      //     'windows.jQuery': 'jquery'
-      // })
+    plugins: [
+      new webpack.ResolverPlugin(
+        new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])
+      ),
+      new webpack.ProvidePlugin({
+        $: 'jquery',
+        jQuery: 'jquery'
+      })
     ],
 
     resolve: {
       extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx'],
-      // root: [path.join(__dirname, 'bower_components')]
+      root: [path.join(__dirname, 'bower_components')]
     },
 
     module: {
+      noParse: [
+        /bower_components/
+      ],
+
       preLoaders: [
         // {
         //   test: /\.js$/,
-        //   exclude: /node_modules/,
+        //   exclude: /node_modules|bower_components/,
         //   loader: 'jshint'
         // }
       ],
@@ -76,7 +55,7 @@ module.exports = function(release) {
       loaders: [
         {
           test: /\.js$/,
-          exclude: /node_modules/,
+          exclude: /node_modules|bower_components/,
           loader: '6to5-loader'
         }
         // {
@@ -106,4 +85,29 @@ module.exports = function(release) {
       ]
     }
   };
+
+  if (release === false) {
+    config.cache = true;
+    config.debug = true;
+    config.devtool = false;
+
+    config.plugins.concat([
+      new webpack.DefinePlugin({'__DEV__': true})
+    ]);
+  }
+
+  if (release === true) {
+    config.plugins.concat([
+      new webpack.DefinePlugin({
+        'process.env.NODE_ENV': '"production"',
+        '__DEV__': false
+      }),
+      new webpack.optimize.DedupePlugin(),
+      new webpack.optimize.UglifyJsPlugin(),
+      new webpack.optimize.OccurenceOrderPlugin(),
+      new webpack.optimize.AggressiveMergingPlugin()
+    ]);
+  }
+
+  return config;
 };

@@ -1,4 +1,4 @@
-window.jQuery = window.$ = require('../../bower_components/jquery/dist/jquery.js');
+window.jQuery = window.$ = require('jquery');
 require('./twitter-tooltip');
 
 $('#external-networks a').tooltip({
