@@ -104,11 +104,10 @@ gulp.task('wiredep', function () {
 });
 
 gulp.task('webpack', function(cb) {
+  var production = process.env.PRODUCTION ? true : false;
   var started = false;
-  var config = require('./webpack.config')(false);
+  var config = require('./webpack.config')(production);
   var bundler = require('webpack')(config);
-
-  var watch = true;
 
   function bundle(err, stats) {
     if (err) {
@@ -126,10 +125,10 @@ gulp.task('webpack', function(cb) {
     }
   }
 
-  if (watch) {
-    bundler.watch(200, bundle);
-  } else {
+  if (production) {
     bundler.run(bundle);
+  } else {
+    bundler.watch(200, bundle);
   }
 });
 
