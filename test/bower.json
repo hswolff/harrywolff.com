@@ -1,5 +1,5 @@
 {
-  "name": "harrywolff-com-test",
+  "name": "hswolff-com-test",
   "private": true,
   "dependencies": {
     "chai": "~1.8.0",

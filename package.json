@@ -1,9 +1,9 @@
 {
-  "name": "harrywolff-com",
+  "name": "hswolff-com",
   "version": "0.6.0",
   "repository": {
     "type": "git",
-    "url": "git@github.com:hswolff/harrywolff.com.git"
+    "url": "git@github.com:hswolff/hswolff.com.git"
   },
   "engines": {
     "node": ">=0.10.0"
