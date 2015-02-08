@@ -81,6 +81,26 @@ gulp.task('serve', ['connect', 'watch'], function () {
   require('opn')('http://localhost:9000');
 });
 
+gulp.task('server', function() {
+  var nodemon = require('nodemon');
+
+  nodemon({
+    // execMap: {
+    //   js: 'node --harmony'
+    // },
+    ignore: ['app', 'test', 'gulpfile.js'],
+    script: 'server-bootstrap.js'
+  });
+
+  nodemon.on('start', function () {
+    console.log('App has started');
+  }).on('quit', function () {
+    console.log('App has quit');
+  }).on('restart', function (files) {
+    console.log('App restarted due to: ', files);
+  });
+});
+
 var webpackSettings = {
   stats: {
     colors: true,
