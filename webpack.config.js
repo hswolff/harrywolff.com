@@ -13,12 +13,14 @@ var path = require('path');
  */
 module.exports = function(production) {
   var config = {
-    entry: './app/scripts/main.js',
+    entry: {
+      app: ['webpack/hot/dev-server', './app/scripts/main.js']
+    },
 
     output: {
+      path: path.join(__dirname, './app'),
       filename: 'main.js',
-      path: './.tmp/scripts/',
-      publicPath: './tmp/'
+      publicPath: '/'
     },
 
     cache: false,
@@ -46,11 +48,11 @@ module.exports = function(production) {
       ],
 
       preLoaders: [
-        // {
-        //   test: /\.js$/,
-        //   exclude: /node_modules|bower_components/,
-        //   loader: 'jshint'
-        // }
+        {
+          test: /\.js$/,
+          exclude: /node_modules|bower_components|twitter-tooltip/,
+          loader: 'jshint'
+        }
       ],
 
       loaders: [
@@ -58,23 +60,7 @@ module.exports = function(production) {
           test: /\.js$/,
           exclude: /node_modules|bower_components/,
           loader: '6to5-loader'
-        },
-        // {
-        //   test: /\.gif/,
-        //   loader: 'url-loader?limit=10000&mimetype=image/gif'
-        // },
-        // {
-        //   test: /\.jpg/,
-        //   loader: 'url-loader?limit=10000&mimetype=image/jpg'
-        // },
-        // {
-        //   test: /\.png/,
-        //   loader: 'url-loader?limit=10000&mimetype=image/png'
-        // },
-        // {
-        //   test: /\.jsx?$/,
-        //   loader: 'jsx-loader?harmony&stripTypes'
-        // }
+        }
       ]
     }
   };
@@ -84,9 +70,12 @@ module.exports = function(production) {
     config.debug = true;
     config.devtool = false;
 
+    config.output.publicPath = 'http://localhost:8080/';
+
     config.plugins = config.plugins.concat([
       new webpack.DefinePlugin({'__DEV__': true}),
-      new webpack.NoErrorsPlugin()
+      new webpack.NoErrorsPlugin(),
+      new webpack.HotModuleReplacementPlugin()
     ]);
 
     config.module.loaders = config.module.loaders.concat([
@@ -102,6 +91,8 @@ module.exports = function(production) {
   }
 
   if (production === true) {
+    config.entry = './app/scripts/main.js';
+
     config.plugins = config.plugins.concat([
       new webpack.DefinePlugin({
         'process.env.NODE_ENV': '"production"',

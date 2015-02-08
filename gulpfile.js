@@ -103,6 +103,21 @@ gulp.task('wiredep', function () {
     .pipe(gulp.dest('app'));
 });
 
+var webpackSettings = {
+  stats: {
+    colors: true,
+    reasons: false,
+    errorDetails: true,
+    hash: false,
+    version: false,
+    timings: true,
+    chunkModules: false,
+    modules: true,
+    cached: false,
+    source: true
+  }
+};
+
 gulp.task('webpack', function(cb) {
   var production = process.env.PRODUCTION ? true : false;
   var started = false;
@@ -114,10 +129,7 @@ gulp.task('webpack', function(cb) {
       throw new $.util.PluginError('webpack', err);
     }
 
-    $.util.log('[webpack]', stats.toString({
-      colors: true,
-      reasons: false
-    }));
+    $.util.log('[webpack]', stats.toString(webpackSettings.stats));
 
     if (!started) {
       started = true;
@@ -132,7 +144,28 @@ gulp.task('webpack', function(cb) {
   }
 });
 
-gulp.task('watch', ['connect', 'webpack'], function () {
+gulp.task('webpack-dev-server', function(cb) {
+  var WebpackDevServer = require('webpack-dev-server');
+  var webpack = require('webpack');
+
+  var compiler = webpack(require('./webpack.config')(false));
+
+  var server = new WebpackDevServer(compiler, {
+    filename: 'main.js',
+    contentBase: 'http://localhost:9000',
+    hot: true,
+    // inline: true, // doesn't seem to do anything?
+    quiet: false,
+    noInfo: false,
+    lazy: false,
+    watchDelay: 300,
+    publicPath: 'http://localhost:9000/',
+    stats: webpackSettings.stats
+  });
+  server.listen(8080, 'localhost', cb);
+});
+
+gulp.task('watch', ['connect', 'webpack-dev-server'], function () {
   $.livereload.listen();
 
   // watch for changes

@@ -37,7 +37,7 @@
     "gulp-useref": "^1.1.1",
     "gulp-util": "^3.0.2",
     "jshint": "^2.6.0",
-    "jshint-loader": "^0.8.1",
+    "jshint-loader": "^0.8.2",
     "jshint-stylish": "^1.0.0",
     "less": "^2.3.1",
     "less-loader": "^2.0.0",
@@ -47,6 +47,7 @@
     "serve-static": "^1.8.1",
     "style-loader": "^0.8.3",
     "webpack": "^1.5.3",
+    "webpack-dev-server": "^1.7.0",
     "wiredep": "^2.2.2"
   }
 }
