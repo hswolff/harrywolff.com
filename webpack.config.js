@@ -19,7 +19,7 @@ module.exports = function(production) {
 
     output: {
       filename: 'main.js',
-      publicPath: '/'
+      publicPath: '/assets/'
     },
 
     cache: false,
@@ -75,8 +75,8 @@ module.exports = function(production) {
     config.debug = true;
     config.devtool = false;
 
-    config.output.path = path.join(__dirname, './app');
-    config.output.publicPath = 'http://localhost:8080/';
+    config.output.path = path.join(__dirname, './app/assets');
+    config.output.publicPath = 'http://localhost:8080/assets/';
 
     config.plugins = config.plugins.concat([
       new webpack.DefinePlugin({'__DEV__': true}),
@@ -99,7 +99,7 @@ module.exports = function(production) {
   if (production === true) {
     config.entry = './app/scripts/main.js';
 
-    config.output.path = path.join(__dirname, './dist');
+    config.output.path = path.join(__dirname, './dist/assets');
 
     config.plugins = config.plugins.concat([
       new webpack.DefinePlugin({

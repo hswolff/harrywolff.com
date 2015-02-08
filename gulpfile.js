@@ -146,7 +146,7 @@ gulp.task('webpack-dev-server', function(cb) {
     noInfo: false,
     lazy: false,
     watchDelay: 300,
-    publicPath: 'http://localhost:9000/',
+    publicPath: 'http://localhost:9000/assets/',
     stats: webpackSettings.stats
   });
   server.listen(8080, 'localhost', cb);
