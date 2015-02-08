@@ -73,13 +73,9 @@ function connectTask(production) {
     });
 }
 
-gulp.task('connect', function () {
-  connectTask(false);
-});
+gulp.task('connect', connectTask.bind(null, false));
 
-gulp.task('connect:build', function () {
-  connectTask(true);
-});
+gulp.task('connect:build', connectTask.bind(null, true));
 
 gulp.task('serve', ['connect', 'watch'], function () {
   require('opn')('http://localhost:9000');
