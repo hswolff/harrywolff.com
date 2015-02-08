@@ -18,7 +18,6 @@ module.exports = function(production) {
     },
 
     output: {
-      path: path.join(__dirname, './app'),
       filename: 'main.js',
       publicPath: '/'
     },
@@ -65,11 +64,18 @@ module.exports = function(production) {
     }
   };
 
+  var cssLoaders = [
+    'style-loader',
+    'css-loader',
+    'autoprefixer-loader?browsers=last 1 version'
+  ];
+
   if (production === false) {
     config.cache = true;
     config.debug = true;
     config.devtool = false;
 
+    config.output.path = path.join(__dirname, './app');
     config.output.publicPath = 'http://localhost:8080/';
 
     config.plugins = config.plugins.concat([
@@ -81,17 +87,19 @@ module.exports = function(production) {
     config.module.loaders = config.module.loaders.concat([
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader'
+        loader: cssLoaders.join('!')
       },
       {
         test: /\.less$/,
-        loader: 'style-loader!css-loader!less-loader'
+        loader: cssLoaders.concat('less-loader').join('!')
       }
     ]);
   }
 
   if (production === true) {
     config.entry = './app/scripts/main.js';
+
+    config.output.path = path.join(__dirname, './dist');
 
     config.plugins = config.plugins.concat([
       new webpack.DefinePlugin({
@@ -107,14 +115,16 @@ module.exports = function(production) {
       })
     ]);
 
+    var styleLoader = cssLoaders.shift();
+
     config.module.loaders = config.module.loaders.concat([
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
+        loader: ExtractTextPlugin.extract(styleLoader, cssLoaders.join('!'))
       },
       {
         test: /\.less$/,
-        loader: ExtractTextPlugin.extract('style-loader', 'css-loader!less-loader')
+        loader: ExtractTextPlugin.extract(styleLoader, cssLoaders.concat('less-loader').join('!'))
       }
     ]);
   }
