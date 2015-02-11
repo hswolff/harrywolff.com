@@ -47,11 +47,11 @@ module.exports = function(production) {
       ],
 
       preLoaders: [
-        // {
-        //   test: /\.jsx?$/,
-        //   exclude: /node_modules|bower_components|twitter-tooltip/,
-        //   loader: 'jshint'
-        // }
+        {
+          test: /\.js$/,
+          exclude: /node_modules|bower_components/,
+          loader: 'eslint-loader'
+        }
       ],
 
       loaders: [

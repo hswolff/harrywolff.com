@@ -83,9 +83,9 @@ function patchRequire() {
   var Module = require('module');
   var oldRequire = Module.prototype.require;
 
-  Module.prototype.require = function(path) {
+  Module.prototype.require = function(requirePath) {
     // Ignore style files.
-    if (path.match(/\.(c|le)ss$/)) {
+    if (requirePath.match(/\.(c|le)ss$/)) {
       return '';
     }
 

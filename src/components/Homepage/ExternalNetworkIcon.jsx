@@ -1,3 +1,5 @@
+'use strict';
+
 require('./twitter-tooltip.css');
 
 const React = require('react');

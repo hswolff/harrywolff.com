@@ -1,14 +1,14 @@
-let React = require('react/addons');
-let Router = require('react-router');
+'use strict';
 
+let React = require('react/addons');
 let {
   DefaultRoute,
   Route,
-} = Router;
+} = require('react-router');
 
 
 var Test = React.createClass({
-  render: function () {
+  render: function() {
     return (
       <div>
         <h3>My Test!</h3>

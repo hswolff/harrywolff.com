@@ -1,7 +1,8 @@
+'use strict';
+
 require('./Homepage.less');
 
 const React = require('react');
-const {Tooltip, OverlayTrigger} = require('react-bootstrap');
 const ExternalNetworkIcon = require('./ExternalNetworkIcon');
 
 module.exports = React.createClass({

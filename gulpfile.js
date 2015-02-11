@@ -1,17 +1,17 @@
-/* jshint node:true */
 'use strict';
 
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var childProcess = require('child_process');
 
-gulp.task('jshint', function () {
+gulp.task('lint', function () {
   return gulp.src([
-      'src/**/*.js'
+      'src/**/*.js',
+      'src/**/*.jsx'
     ])
-    .pipe($.jshint())
-    .pipe($.jshint.reporter('jshint-stylish'))
-    .pipe($.jshint.reporter('fail'));
+    .pipe($.eslint())
+    .pipe($.eslint.format())
+    .pipe($.eslint.failOnError());
 });
 
 gulp.task('images', function () {
@@ -118,10 +118,10 @@ gulp.task('webpack-dev-server', function(cb) {
 
 gulp.task('watch', ['server', 'webpack-dev-server']);
 
-gulp.task('build', ['jshint', 'images', 'transpile-src', 'webpack:build'], function () {
+gulp.task('build', ['lint', 'images', 'transpile-src', 'webpack:build'], function() {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 
-gulp.task('default', ['clean'], function () {
+gulp.task('default', ['clean'], function() {
   gulp.start('build');
 });
