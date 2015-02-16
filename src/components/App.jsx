@@ -10,7 +10,7 @@ module.exports = React.createClass({
   render: function () {
     return (
       <div>
-        <header>
+        <header style={{display: 'none'}}>
           <ul>
             <li><Link to="app">Dashboard</Link></li>
             <li><Link to="test">Test</Link></li>
