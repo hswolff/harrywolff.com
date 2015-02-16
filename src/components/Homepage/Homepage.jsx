@@ -1,6 +1,20 @@
+require('./twitter-tooltip.css');
+require('./Homepage.less');
+
+
 const React = require('react');
 
 module.exports = React.createClass({
+  componentDidMount: function() {
+    window.jQuery = window.$ = require('jquery');
+    require('./twitter-tooltip');
+    
+    $('#external-networks a').tooltip({
+      placement: 'bottom',
+      title: 'bob'
+    });
+  },
+
   render: function() {
     return (
       <div className="container">

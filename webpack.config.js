@@ -14,15 +14,15 @@ var path = require('path');
 module.exports = function(production) {
   var config = {
     entry: {
-      app: [
+      main: [
         'webpack/hot/dev-server',
-        './app/scripts/main.js',
+        // './app/scripts/main.js',
         './src/client.jsx'
       ]
     },
 
     output: {
-      filename: 'main.js',
+      filename: '[name].js',
       publicPath: '/assets/'
     },
 
@@ -48,7 +48,7 @@ module.exports = function(production) {
 
     module: {
       noParse: [
-        /bower_components/
+        'jquery'
       ],
 
       preLoaders: [

@@ -3,9 +3,7 @@ let Router = require('react-router');
 
 let {
   DefaultRoute,
-  Link,
   Route,
-  RouteHandler
 } = Router;
 
 
@@ -20,7 +18,7 @@ var Test = React.createClass({
 });
 
 const App = require('./components/App');
-const Homepage = require('./components/Homepage');
+const Homepage = require('./components/Homepage/Homepage');
 
 module.exports = (
   <Route name="app" path="/" handler={App}>

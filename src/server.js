@@ -75,8 +75,29 @@ server.route({
   }
 });
 
-
-
 server.start(() => {
   console.log('Server running at:', server.info.uri);
 });
+
+/**
+ * Patches node's require() statement to ignore any style files (css/less).
+ * This is a quick patch to allow for rendering React views that require css or
+ * less via webpack to work in node.
+ * @TODO: don't do this?
+ */
+function patchRequire() {
+  var Module = require('module');
+  var oldRequire = Module.prototype.require;
+
+  Module.prototype.require = function(path) {
+    // Ignore style files.
+    if (path.match(/\.(c|le)ss$/)) {
+      return '';
+    }
+
+    return oldRequire.apply(this, arguments);
+  };
+}
+
+// Patch require.
+patchRequire();
