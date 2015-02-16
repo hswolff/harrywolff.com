@@ -33,29 +33,22 @@ server.state('data', {
   ignoreErrors: true
 });
 
-server.route({
-  method: 'GET',
-  path: '/{param}.{ext}',
-  handler: {
-    file: function(request) {
-      return path.join(__dirname, 'public', request.path);
+[
+  '/{param}.{ext}',
+  '/images/{param*}',
+  '/assets/{param*}'
+].forEach(routePath => {
+  server.route({
+    method: 'GET',
+    path: routePath,
+    handler: {
+      file: function(request) {
+        return path.join(__dirname, 'public', request.path);
+      }
     }
-  }
+  });
 });
 
-server.route({
-  method: 'GET',
-  path: '/images/{param*}',
-  handler: {
-    file: function(request) {
-      return path.join(__dirname, 'public', request.path);
-    }
-    // directory: {
-    //   path: 'src/public/images',
-    //   listing: true
-    // }
-  }
-});
 
 server.route({
   method: 'GET',
@@ -63,12 +56,13 @@ server.route({
   handler: function (request, reply) {
     // var DocumentTitle = require('react-document-title');
     // var Html   = require('./components/Html.jsx');
-    Router.run(require('./routes.jsx'), request.path, function(Handler, state) {
+    Router.run(require('./routes'), request.path, function(Handler) {
       // var title  = DocumentTitle.rewind();
       var markup = React.renderToString(React.createElement(Handler, null));
       // var html   = React.renderToStaticMarkup(React.createElement(Html, {title: title, markup: markup}));
 
       reply.view('index', {
+        PRODUCTION: process.env.PRODUCTION,
         content: markup
       });
     });

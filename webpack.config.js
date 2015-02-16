@@ -15,7 +15,6 @@ module.exports = function(production) {
   var config = {
     entry: {
       main: [
-        'webpack/hot/dev-server',
         './src/client.jsx'
       ]
     },
@@ -88,11 +87,13 @@ module.exports = function(production) {
   ];
 
   if (production === false) {
+    config.entry.main.unshift('webpack/hot/dev-server');
+
     config.cache = true;
     config.debug = true;
     config.devtool = false;
 
-    config.output.path = path.join(__dirname, './app/assets');
+    config.output.path = path.join(__dirname, './src/public/assets');
     config.output.publicPath = 'http://localhost:8080/assets/';
 
     config.plugins = config.plugins.concat([
@@ -114,9 +115,7 @@ module.exports = function(production) {
   }
 
   if (production === true) {
-    config.entry = './app/scripts/main.js';
-
-    config.output.path = path.join(__dirname, './dist/assets');
+    config.output.path = path.join(__dirname, './dist/public/assets');
 
     config.plugins = config.plugins.concat([
       new webpack.DefinePlugin({
