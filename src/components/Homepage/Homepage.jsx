@@ -1,28 +1,8 @@
-require('./twitter-tooltip.css');
 require('./Homepage.less');
 
-const {Tooltip, OverlayTrigger} = require('react-bootstrap');
 const React = require('react');
-
-const ExternalNetworkIcon = React.createClass({
-  getImageNamed: function(name) {
-    // @TODO: switch to use webpack's url-loader (and make server not barf on it).
-    // return require('../../public/images/external-networks/' + name);
-    return '/images/external-networks/' + name + '.png';
-  },
-  render: function() {
-    return (
-      <OverlayTrigger
-          placement="bottom"
-          overlay={<Tooltip>{this.props.title}</Tooltip>}>
-
-        <a href={this.props.url} title={this.props.title}>
-          <img src={this.getImageNamed(this.props.title.toLowerCase())} alt={this.props.title} />
-        </a>
-      </OverlayTrigger>
-    );
-  }
-});
+const {Tooltip, OverlayTrigger} = require('react-bootstrap');
+const ExternalNetworkIcon = require('./ExternalNetworkIcon');
 
 module.exports = React.createClass({
   render: function() {
