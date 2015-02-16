@@ -9,3 +9,11 @@ $('#external-networks a').tooltip({
   placement: 'bottom',
   title: 'bob'
 });
+
+var HelloMessage = React.createClass({
+  render: function() {
+    return <div>Hello {this.props.name}</div>;
+  }
+});
+
+React.render(<HelloMessage name="John" />, document.querySelector('.welcome'));

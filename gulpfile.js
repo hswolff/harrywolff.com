@@ -7,7 +7,8 @@ var $ = require('gulp-load-plugins')();
 gulp.task('jshint', function () {
   return gulp.src([
       'app/scripts/**/*.js',
-      '!app/scripts/**/twitter*.js'
+      '!app/scripts/**/twitter*.js',
+      'src/**/*.js'
     ])
     .pipe($.jshint())
     .pipe($.jshint.reporter('jshint-stylish'))
@@ -50,32 +51,6 @@ gulp.task('extras', function () {
 });
 
 gulp.task('clean', require('del').bind(null, ['dist']));
-
-function connectTask(production) {
-  var directory = production ? 'dist' : 'app';
-  var serveStatic = require('serve-static');
-  var serveIndex = require('serve-index');
-  var app = require('connect')()
-    .use(serveStatic(directory))
-    // paths to bower_components should be relative to the current file
-    // e.g. in app/index.html you should use ../bower_components
-    .use('/bower_components', serveStatic('bower_components'))
-    .use(serveIndex(directory));
-
-  if (!production) {
-    app.use(require('connect-livereload')({port: 35729}));
-  }
-
-  require('http').createServer(app)
-    .listen(9000)
-    .on('listening', function () {
-      console.log('Started connect web server on http://localhost:9000');
-    });
-}
-
-gulp.task('connect', connectTask.bind(null, false));
-
-gulp.task('connect:build', connectTask.bind(null, true));
 
 gulp.task('serve', ['connect', 'watch'], function () {
   require('opn')('http://localhost:9000');
@@ -168,7 +143,7 @@ gulp.task('webpack-dev-server', function(cb) {
   server.listen(8080, 'localhost', cb);
 });
 
-gulp.task('watch', ['connect', 'webpack-dev-server'], function () {
+gulp.task('watch', ['server', 'webpack-dev-server'], function () {
   $.livereload.listen();
 
   // watch for changes

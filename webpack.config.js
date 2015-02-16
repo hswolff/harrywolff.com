@@ -14,7 +14,11 @@ var path = require('path');
 module.exports = function(production) {
   var config = {
     entry: {
-      app: ['webpack/hot/dev-server', './app/scripts/main.js']
+      app: [
+        'webpack/hot/dev-server',
+        './app/scripts/main.js',
+        './src/client.jsx'
+      ]
     },
 
     output: {
@@ -32,7 +36,8 @@ module.exports = function(production) {
       ),
       new webpack.ProvidePlugin({
         $: 'jquery',
-        jQuery: 'jquery'
+        jQuery: 'jquery',
+        React: 'react'
       })
     ],
 
@@ -47,16 +52,16 @@ module.exports = function(production) {
       ],
 
       preLoaders: [
-        {
-          test: /\.js$/,
-          exclude: /node_modules|bower_components|twitter-tooltip/,
-          loader: 'jshint'
-        }
+        // {
+        //   test: /\.jsx?$/,
+        //   exclude: /node_modules|bower_components|twitter-tooltip/,
+        //   loader: 'jshint'
+        // }
       ],
 
       loaders: [
         {
-          test: /\.js$/,
+          test: /\.jsx?$/,
           exclude: /node_modules|bower_components/,
           loader: '6to5-loader'
         }
