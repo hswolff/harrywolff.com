@@ -63,7 +63,7 @@ module.exports = function(production) {
         {
           test: /\.jsx?$/,
           exclude: /node_modules|bower_components/,
-          loader: '6to5-loader'
+          loader: 'babel-loader'
         }
       ]
     }

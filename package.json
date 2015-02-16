@@ -16,10 +16,10 @@
     "swig": "^1.4.2"
   },
   "devDependencies": {
-    "6to5": "^3.4.1",
-    "6to5-loader": "^3.0.0",
     "apache-server-configs": "^2.11.0",
     "autoprefixer-loader": "^1.1.0",
+    "babel": "^4.0.1",
+    "babel-loader": "^4.0.0",
     "css-loader": "^0.9.1",
     "del": "^1.1.1",
     "extract-text-webpack-plugin": "^0.3.8",
