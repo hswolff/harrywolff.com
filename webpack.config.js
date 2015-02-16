@@ -16,7 +16,6 @@ module.exports = function(production) {
     entry: {
       main: [
         'webpack/hot/dev-server',
-        // './app/scripts/main.js',
         './src/client.jsx'
       ]
     },
@@ -35,8 +34,6 @@ module.exports = function(production) {
         new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])
       ),
       new webpack.ProvidePlugin({
-        $: 'jquery',
-        jQuery: 'jquery',
         React: 'react'
       })
     ],
@@ -48,7 +45,6 @@ module.exports = function(production) {
 
     module: {
       noParse: [
-        'jquery'
       ],
 
       preLoaders: [
@@ -64,6 +60,22 @@ module.exports = function(production) {
           test: /\.jsx?$/,
           exclude: /node_modules|bower_components/,
           loader: 'babel-loader'
+        },
+        {
+          test: /\.gif/,
+          loader: 'url-loader?limit=10000&mimetype=image/gif'
+        },
+        {
+          test: /\.jpg/,
+          loader: 'url-loader?limit=10000&mimetype=image/jpg'
+        },
+        {
+          test: /\.png/,
+          loader: 'url-loader?limit=10000&mimetype=image/png'
+        },
+        {
+          test: /\.svg/,
+          loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
         }
       ]
     }

@@ -1,20 +1,30 @@
 require('./twitter-tooltip.css');
 require('./Homepage.less');
 
-
+const {Tooltip, OverlayTrigger} = require('react-bootstrap');
 const React = require('react');
 
-module.exports = React.createClass({
-  componentDidMount: function() {
-    window.jQuery = window.$ = require('jquery');
-    require('./twitter-tooltip');
-    
-    $('#external-networks a').tooltip({
-      placement: 'bottom',
-      title: 'bob'
-    });
+const ExternalNetworkIcon = React.createClass({
+  getImageNamed: function(name) {
+    // @TODO: switch to use webpack's url-loader (and make server not barf on it).
+    // return require('../../public/images/external-networks/' + name);
+    return '/images/external-networks/' + name + '.png';
   },
+  render: function() {
+    return (
+      <OverlayTrigger
+          placement="bottom"
+          overlay={<Tooltip>{this.props.title}</Tooltip>}>
 
+        <a href={this.props.url} title={this.props.title}>
+          <img src={this.getImageNamed(this.props.title.toLowerCase())} alt={this.props.title} />
+        </a>
+      </OverlayTrigger>
+    );
+  }
+});
+
+module.exports = React.createClass({
   render: function() {
     return (
       <div className="container">
@@ -28,27 +38,13 @@ module.exports = React.createClass({
         <p className="welcome">Welcome back to my lovely abode!</p>
 
         <div id="external-networks" className="external-networks">
-          <a href="https://twitter.com/hswolff" title="Twitter">
-            <img src="/images/external-networks/twitter.png" alt="twitter" />
-          </a>
-          <a href="https://www.facebook.com/harrywolff" title="Facebook">
-            <img src="/images/external-networks/facebook.png" alt="facebook" />
-          </a>
-          <a href="https://foursquare.com/hswolff" title="Foursquare">
-            <img src="/images/external-networks/foursquare.png" alt="foursquare" />
-          </a>
-          <a href="http://instagram.com/hswolff" title="Instagram">
-            <img src="/images/external-networks/instagram.png" alt="instagram" />
-          </a>
-          <a href="https://plus.google.com/+HarryWolff" title="Google+">
-            <img src="/images/external-networks/google+.png" alt="google+" />
-          </a>
-          <a href="http://www.linkedin.com/in/hswolff" title="LinkedIn">
-            <img src="/images/external-networks/linkedin.png" alt="linkedin" />
-          </a>
-          <a href="https://github.com/hswolff" title="GitHub">
-            <img src="/images/external-networks/github.png" alt="github" />
-          </a>
+          <ExternalNetworkIcon url="https://twitter.com/hswolff" title="Twitter" />
+          <ExternalNetworkIcon url="https://www.facebook.com/harrywolff" title="Facebook" />
+          <ExternalNetworkIcon url="https://foursquare.com/hswolff" title="Foursquare" />
+          <ExternalNetworkIcon url="http://instagram.com/hswolff" title="Instagram" />
+          <ExternalNetworkIcon url="https://plus.google.com/+HarryWolff" title="Google+" />
+          <ExternalNetworkIcon url="http://www.linkedin.com/in/hswolff" title="LinkedIn" />
+          <ExternalNetworkIcon url="https://github.com/hswolff" title="GitHub" />
         </div>
       </div>
     );
