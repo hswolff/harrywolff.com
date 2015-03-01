@@ -91,7 +91,7 @@ module.exports = function(production) {
 
     config.cache = true;
     config.debug = true;
-    config.devtool = false;
+    config.devtool = 'eval-sourcemap';
 
     config.output.path = path.join(__dirname, './src/public/assets');
     config.output.publicPath = 'http://localhost:8080/assets/';
