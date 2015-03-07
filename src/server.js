@@ -6,7 +6,8 @@ const path = require('path');
 const React = require('react/addons');
 const Router = require('react-router');
 
-var server = new Hapi.Server();
+const server = new Hapi.Server();
+
 server.connection({
   port: 9000,
   routes: {
@@ -33,40 +34,33 @@ server.state('data', {
   ignoreErrors: true
 });
 
-[
-  '/{param}.{ext}',
-  '/images/{param*}',
-  '/assets/{param*}'
-].forEach(routePath => {
-  server.route({
-    method: 'GET',
-    path: routePath,
-    handler: {
-      file: function(request) {
-        return path.join(__dirname, 'public', request.path);
-      }
+server.route({
+  method: '*',
+  path: '/{params*}',
+  handler: {
+    file: function(request) {
+      return path.join(__dirname, 'public', request.path);
     }
-  });
+  }
 });
 
-
-server.route({
-  method: 'GET',
-  path: '/{param*}',
-  handler: function (request, reply) {
-    // var DocumentTitle = require('react-document-title');
-    // var Html   = require('./components/Html.jsx');
-    Router.run(require('./routes'), request.path, function(Handler) {
-      // var title  = DocumentTitle.rewind();
-      var markup = React.renderToString(React.createElement(Handler, null));
-      // var html   = React.renderToStaticMarkup(React.createElement(Html, {title: title, markup: markup}));
-
-      reply.view('index', {
-        PRODUCTION: process.env.PRODUCTION,
-        content: markup
-      });
-    });
+server.ext('onPreResponse', function(request, reply) {
+  if (request.response.statusCode) {
+    return reply.continue();
   }
+
+  // var DocumentTitle = require('react-document-title');
+  // var Html   = require('./components/Html.jsx');
+  Router.run(require('./routes'), request.path, function(Handler) {
+    // var title  = DocumentTitle.rewind();
+    var markup = React.renderToString(React.createElement(Handler, null));
+    // var html   = React.renderToStaticMarkup(React.createElement(Html, {title: title, markup: markup}));
+
+    reply.view('index', {
+      PRODUCTION: process.env.PRODUCTION,
+      content: markup
+    });
+  });
 });
 
 server.start(() => {
