@@ -15,7 +15,7 @@ module.exports = function(production) {
   var config = {
     entry: {
       main: [
-        './src/client.jsx'
+        './src/client/index.jsx'
       ]
     },
 

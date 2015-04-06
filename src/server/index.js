@@ -39,7 +39,7 @@ server.route({
   path: '/{params*}',
   handler: {
     file: function(request) {
-      return path.join(__dirname, 'public', request.path);
+      return path.join(__dirname, '../public', request.path);
     }
   }
 });
@@ -50,7 +50,7 @@ server.ext('onPreResponse', function(request, reply) {
   }
 
   const DocumentTitle = require('react-document-title');
-  Router.run(require('./routes'), request.path, function(Handler) {
+  Router.run(require('../routes'), request.path, function(Handler) {
     Promise.all([
       require('./api/blog')(),
       require('./api/pinboard')()
