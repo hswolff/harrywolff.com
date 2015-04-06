@@ -72,6 +72,7 @@ server.start(() => {
  * This is a quick patch to allow for rendering React views that require css or
  * less via webpack to work in node.
  * @TODO: don't do this?
+ * @return {Function} patched require function.
  */
 function patchRequire() {
   var Module = require('module');
