@@ -6,11 +6,13 @@ let {
   Link,
   RouteHandler
 } = require('react-router');
+const DocumentTitle = require('react-document-title');
 
 module.exports = React.createClass({
-  render: function () {
+  render() {
     return (
       <div>
+        <DocumentTitle title="Harry Wolff" />
         <header style={{display: 'none'}}>
           <ul>
             <li><Link to="app">Dashboard</Link></li>

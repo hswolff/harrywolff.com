@@ -49,15 +49,13 @@ server.ext('onPreResponse', function(request, reply) {
     return reply.continue();
   }
 
-  // var DocumentTitle = require('react-document-title');
-  // var Html   = require('./components/Html.jsx');
+  const DocumentTitle = require('react-document-title');
   Router.run(require('./routes'), request.path, function(Handler) {
-    // var title  = DocumentTitle.rewind();
-    var markup = React.renderToString(React.createElement(Handler, null));
-    // var html   = React.renderToStaticMarkup(React.createElement(Html, {title: title, markup: markup}));
+    const markup = React.renderToString(React.createElement(Handler, null));
 
     reply.view('index', {
       PRODUCTION: process.env.PRODUCTION,
+      title: DocumentTitle.rewind(),
       content: markup
     });
   });

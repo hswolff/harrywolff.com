@@ -1,7 +1,7 @@
 'use strict';
 
-let React = require('react/addons');
-let {
+const React = require('react');
+const {
   DefaultRoute,
   Route,
 } = require('react-router');
