@@ -36,7 +36,11 @@ gulp.task('server', function() {
     // execMap: {
     //   js: 'node --harmony'
     // },
-    ignore: ['test', 'gulpfile.js'],
+    ignore: [
+      'test',
+      'gulpfile.js',
+      'node_modules'
+    ],
     script: 'server-bootstrap.js'
   });
 
