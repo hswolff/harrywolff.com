@@ -3,8 +3,9 @@
 const Hapi = require('hapi');
 const path = require('path');
 
-const React = require('react/addons');
+const React = require('react');
 const Router = require('react-router');
+const DocumentTitle = require('react-document-title');
 
 const server = new Hapi.Server();
 
@@ -49,17 +50,17 @@ server.ext('onPreResponse', function(request, reply) {
     return reply.continue();
   }
 
-  const DocumentTitle = require('react-document-title');
-  Router.run(require('../routes'), request.path, function(Handler) {
-    Promise.all([
-      require('./api/blog')(),
-      require('./api/pinboard')()
-    ]).then(values => {
-      return {
-        blog: values[0],
-        pinboard: values[1]
-      };
-    }).then(dataBootstrap => {
+  Promise.all([
+    require('./api/blog')(),
+    require('./api/pinboard')()
+  ]).then(values => {
+    return {
+      blog: values[0],
+      pinboard: values[1]
+    };
+  }).then(dataBootstrap => {
+
+    Router.run(require('../routes')(dataBootstrap), request.path, function(Handler) {
       // Send view.
       reply.view('index', {
         PRODUCTION: process.env.PRODUCTION,

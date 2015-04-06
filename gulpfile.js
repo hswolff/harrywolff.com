@@ -41,6 +41,7 @@ gulp.task('server', function() {
       'gulpfile.js',
       'node_modules'
     ],
+    // ext: 'js jsx',
     script: 'server-bootstrap.js'
   });
 
