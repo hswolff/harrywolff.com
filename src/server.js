@@ -51,12 +51,22 @@ server.ext('onPreResponse', function(request, reply) {
 
   const DocumentTitle = require('react-document-title');
   Router.run(require('./routes'), request.path, function(Handler) {
-    const markup = React.renderToString(React.createElement(Handler, null));
-
-    reply.view('index', {
-      PRODUCTION: process.env.PRODUCTION,
-      title: DocumentTitle.rewind(),
-      content: markup
+    Promise.all([
+      require('./api/blog')(),
+      require('./api/pinboard')()
+    ]).then(values => {
+      return {
+        blog: values[0],
+        pinboard: values[1]
+      };
+    }).then(dataBootstrap => {
+      // Send view.
+      reply.view('index', {
+        PRODUCTION: process.env.PRODUCTION,
+        title: DocumentTitle.rewind(),
+        content: React.renderToString(React.createElement(Handler, null)),
+        dataBootstrap
+      });
     });
   });
 });
