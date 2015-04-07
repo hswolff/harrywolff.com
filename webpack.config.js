@@ -12,6 +12,8 @@ var path = require('path');
  * @return {object} Webpack configuration
  */
 module.exports = function(production) {
+  var jsxLoaders = ['babel-loader'];
+
   var config = {
     entry: {
       main: [
@@ -44,6 +46,7 @@ module.exports = function(production) {
 
     module: {
       noParse: [
+        /reflux/
       ],
 
       preLoaders: [
@@ -58,7 +61,7 @@ module.exports = function(production) {
         {
           test: /\.jsx?$/,
           exclude: /node_modules|bower_components/,
-          loader: 'babel-loader'
+          loaders: jsxLoaders
         },
         {
           test: /\.gif/,
@@ -87,7 +90,8 @@ module.exports = function(production) {
   ];
 
   if (production === false) {
-    config.entry.main.unshift('webpack/hot/dev-server');
+    config.entry.main.unshift('webpack-dev-server/client?http://0.0.0.0:8080');
+    config.entry.main.unshift('webpack/hot/only-dev-server');
 
     config.cache = true;
     config.debug = true;
@@ -101,6 +105,8 @@ module.exports = function(production) {
       new webpack.NoErrorsPlugin(),
       new webpack.HotModuleReplacementPlugin()
     ]);
+
+    jsxLoaders.unshift('react-hot');
 
     config.module.loaders = config.module.loaders.concat([
       {
