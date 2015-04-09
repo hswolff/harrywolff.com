@@ -12,7 +12,8 @@ var path = require('path');
  * @return {object} Webpack configuration
  */
 module.exports = function(production) {
-  var jsxLoaders = ['babel-loader'];
+  var cacheDir = path.join(__dirname, '.tmp');
+  var jsxLoaders = ['babel-loader?cacheDirectory=' + cacheDir];
 
   var config = {
     entry: {
