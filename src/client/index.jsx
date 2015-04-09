@@ -1,8 +1,5 @@
 'use strict';
 
-require('normalize.css');
-require('../styles/main.less');
-
 const React = require('react');
 const Router = require('react-router');
 
