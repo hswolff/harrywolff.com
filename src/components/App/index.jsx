@@ -1,6 +1,5 @@
 'use strict';
 
-require('normalize.css');
 require('./styles.less');
 
 const React = require('react');

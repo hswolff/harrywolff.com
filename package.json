@@ -15,6 +15,7 @@
     "hapi": "^8.4.0",
     "jsdom": "^3.1.2",
     "node-fetch": "^1.0.6",
+    "normalize.css": "^3.0.3",
     "react": "^0.13.1",
     "react-bootstrap": "^0.20.1",
     "react-document-title": "^1.0.2",
