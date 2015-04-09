@@ -11,8 +11,8 @@ const DocumentTitle = require('react-document-title');
 
 const Reflux = require('reflux');
 
-const BlogStore = require('../stores/blog');
-const PinboardStore = require('../stores/pinboard');
+const BlogStore = require('../../stores/blog');
+const PinboardStore = require('../../stores/pinboard');
 
 module.exports = React.createClass({
   mixins: [Reflux.ListenerMixin],
@@ -53,8 +53,8 @@ module.exports = React.createClass({
           Logged in as Jane
         </header>
 
-        {this.renderBlogPosts()}
-        {this.renderPinboardItems()}
+        {/*this.renderBlogPosts()*/}
+        {/*this.renderPinboardItems()*/}
 
         <RouteHandler/>
       </div>

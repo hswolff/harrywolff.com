@@ -21,7 +21,7 @@ var Test = React.createClass({
 });
 
 const App = require('./components/App');
-const Homepage = require('./components/Homepage/Homepage');
+const Homepage = require('./components/Homepage');
 
 module.exports = function(dataBootstrap=window.dataBootstrap) {
   BlogStore.bootstrap(dataBootstrap.blog);

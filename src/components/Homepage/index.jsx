@@ -1,9 +1,9 @@
 'use strict';
 
-require('./Homepage.less');
+require('./styles.less');
 
 const React = require('react');
-const ExternalNetworkIcon = require('./ExternalNetworkIcon');
+const ExternalNetworkIcon = require('../ExternalNetworkIcon');
 
 module.exports = React.createClass({
   render: function() {
