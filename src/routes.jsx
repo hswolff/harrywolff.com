@@ -9,19 +9,9 @@ const {
 const BlogStore = require('./stores/blog');
 const PinboardStore = require('./stores/pinboard');
 
-
-var Test = React.createClass({
-  render: function() {
-    return (
-      <div>
-        <h3>My Test!</h3>
-      </div>
-    );
-  }
-});
-
 const App = require('./components/App');
-const Homepage = require('./components/Homepage');
+const Home = require('./components/Page/Home');
+const About = require('./components/Page/About');
 
 module.exports = function(dataBootstrap=window.dataBootstrap) {
   BlogStore.bootstrap(dataBootstrap.blog);
@@ -29,8 +19,8 @@ module.exports = function(dataBootstrap=window.dataBootstrap) {
 
   return (
     <Route name="app" path="/" handler={App}>
-      <Route name="test" handler={Test}/>
-      <DefaultRoute handler={Homepage}/>
+      <Route name="about" handler={About}/>
+      <DefaultRoute handler={Home}/>
     </Route>
   );
 };
