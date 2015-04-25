@@ -109,16 +109,16 @@ gulp.task('webpack-dev-server', function(cb) {
 
   var server = new WebpackDevServer(compiler, {
     filename: 'main.js',
-    contentBase: 'http://0.0.0.0:9000',
+    contentBase: 'http://0.0.0.0:8080',
     hot: true,
     quiet: false,
     noInfo: false,
     lazy: false,
     watchDelay: 300,
-    publicPath: 'http://0.0.0.0:9000/assets/',
+    publicPath: 'http://0.0.0.0:8080/assets/',
     stats: webpackSettings.stats
   });
-  server.listen(8080, '0.0.0.0', cb);
+  server.listen(9000, '0.0.0.0', cb);
 });
 
 gulp.task('watch', ['server', 'webpack-dev-server']);

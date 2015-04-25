@@ -92,14 +92,14 @@ module.exports = function(production) {
 
   if (production === false) {
     config.entry.main.unshift('webpack/hot/only-dev-server');
-    config.entry.main.unshift('webpack-dev-server/client?http://0.0.0.0:8080');
+    config.entry.main.unshift('webpack-dev-server/client?http://0.0.0.0:9000');
 
     config.cache = true;
     config.debug = true;
     config.devtool = 'eval-sourcemap';
 
     config.output.path = path.join(__dirname, './src/public/assets');
-    config.output.publicPath = 'http://0.0.0.0:8080/assets/';
+    config.output.publicPath = 'http://0.0.0.0:9000/assets/';
 
     config.plugins = config.plugins.concat([
       new webpack.DefinePlugin({'__DEV__': true}),

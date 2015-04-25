@@ -10,7 +10,7 @@ const DocumentTitle = require('react-document-title');
 const server = new Hapi.Server();
 
 server.connection({
-  port: 9000,
+  port: 8080,
   routes: {
     state: {
       failAction: 'log'
