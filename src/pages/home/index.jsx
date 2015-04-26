@@ -1,12 +1,12 @@
 'use strict';
 
-require('./Home.less');
+require('./styles.less');
 
 const React = require('react');
 const DocumentTitle = require('react-document-title');
 
-const BlogPosts = require('../BlogPosts');
-const PinboardPosts = require('../PinboardPosts');
+const BlogPosts = require('../../components/BlogPosts');
+const PinboardPosts = require('../../components/PinboardPosts');
 
 module.exports = React.createClass({
   render: function() {

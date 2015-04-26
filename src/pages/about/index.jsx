@@ -1,6 +1,6 @@
 'use strict';
 
-require('./About.less');
+require('./styles.less');
 
 const React = require('react');
 
