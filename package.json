@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "bootstrap": "^3.3.4",
+    "flummox": "^4.0.0-alpha",
     "hapi": "^8.4.0",
     "jsdom": "^3.1.2",
     "node-fetch": "^1.1.1",
@@ -21,7 +22,6 @@
     "react-bootstrap": "^0.21.0",
     "react-document-title": "^1.0.2",
     "react-router": "^0.13.2",
-    "reflux": "^0.2.7",
     "swig": "^1.4.2"
   },
   "devDependencies": {

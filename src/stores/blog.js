@@ -1,17 +1,15 @@
 'use strict';
 
-const Reflux = require('reflux');
+const { Store } = require('flummox');
 
-module.exports = Reflux.createStore({
-  init() {
-    this.posts = [];
-  },
+class Blog extends Store {
+  constructor() {
+    super();
 
-  bootstrap(initValues) {
-    this.posts = initValues;
-  },
-
-  getData() {
-    return this.posts;
+    this.state = {
+      items: []
+    };
   }
-});
+}
+
+module.exports = Blog;

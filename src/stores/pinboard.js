@@ -1,17 +1,15 @@
 'use strict';
 
-const Reflux = require('reflux');
+const { Store } = require('flummox');
 
-module.exports = Reflux.createStore({
-  init() {
-    this.items = [];
-  },
+class Pinboard extends Store {
+  constructor() {
+    super();
 
-  bootstrap(initValues) {
-    this.items = initValues;
-  },
-
-  getData() {
-    return this.items;
+    this.state = {
+      items: []
+    };
   }
-});
+}
+
+module.exports = Pinboard;

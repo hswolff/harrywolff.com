@@ -47,7 +47,6 @@ module.exports = function(production) {
 
     module: {
       noParse: [
-        /reflux/
       ],
 
       preLoaders: [

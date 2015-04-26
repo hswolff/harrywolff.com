@@ -4,28 +4,10 @@ require('./styles.less');
 
 const React = require('react');
 
-const Reflux = require('reflux');
-
-const PinboardStore = require('../../stores/pinboard');
+const fluxMixin = require('flummox/mixin');
 
 module.exports = React.createClass({
-  mixins: [Reflux.ListenerMixin],
-
-  componentWillMount() {
-    this.listenTo(PinboardStore, this.onPinboardChange);
-  },
-
-  onPinboardChange(newPinboard) {
-    this.setState({
-      pinboardItems: newPinboard
-    });
-  },
-
-  getInitialState() {
-    return {
-      pinboardItems: PinboardStore.getData()
-    };
-  },
+  mixins: [fluxMixin(['pinboard'])],
 
   render: function() {
     return (
@@ -40,7 +22,7 @@ module.exports = React.createClass({
   },
 
   renderPinboardItems() {
-    return this.state.pinboardItems.map(function(post, index) {
+    return this.state.items.map(function(post, index) {
       return (
         <div key={index}>
           <a href={post.url}>{post.title}</a>

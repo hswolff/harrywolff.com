@@ -4,37 +4,19 @@ require('./styles.less');
 
 const React = require('react');
 
-const Reflux = require('reflux');
-
-const BlogStore = require('../../stores/blog');
-
 const BlogPost = require('./BlogPost');
 
+const fluxMixin = require('flummox/mixin');
+
 const BlogPosts = React.createClass({
-  mixins: [Reflux.ListenerMixin],
-
-  componentWillMount() {
-    this.listenTo(BlogStore, this.onBlogChange);
-  },
-
-  onBlogChange(newBlog) {
-    this.setState({
-      blogPosts: newBlog
-    });
-  },
-
-  getInitialState() {
-    return {
-      blogPosts: BlogStore.getData()
-    };
-  },
+  mixins: [fluxMixin(['blog'])],
 
   render: function() {
     return (
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-12">
-            {this.renderBlogPosts()}
+            {(this.renderBlogPosts())}
           </div>
         </div>
       </div>
@@ -42,7 +24,7 @@ const BlogPosts = React.createClass({
   },
 
   renderBlogPosts() {
-    return this.state.blogPosts.map(function(post, index) {
+    return this.state.items.map(function(post, index) {
       return (<BlogPost key={index} {...post} />);
     });
   }

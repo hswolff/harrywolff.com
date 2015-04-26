@@ -15,7 +15,7 @@
     {% endif %}
   </head>
   <body>
-    <div id="app">{{content}}</div>
+    <div id="app">{{content | safe}}</div>
 
     <script>var dataBootstrap = {{dataBootstrap | json | safe}}</script>
 

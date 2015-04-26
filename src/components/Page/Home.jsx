@@ -18,7 +18,6 @@ module.exports = React.createClass({
             <h1>Index</h1>
 
             <BlogPosts />
-
           </div>
         </div>
       </div>

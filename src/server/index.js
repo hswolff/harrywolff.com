@@ -6,6 +6,8 @@ const path = require('path');
 const React = require('react');
 const Router = require('react-router');
 const DocumentTitle = require('react-document-title');
+const { Flux } = require('../flux');
+const FluxComponent = require('flummox/component');
 
 const server = new Hapi.Server();
 
@@ -59,13 +61,20 @@ server.ext('onPreResponse', function(request, reply) {
       pinboard: values[1]
     };
   }).then(dataBootstrap => {
+    let flux = new Flux(dataBootstrap);
 
-    Router.run(require('../routes')(dataBootstrap), request.path, function(Handler) {
+    Router.run(require('../routes'), request.path, function(Handler, state) {
+      let content = React.renderToString(
+        React.createElement(FluxComponent, {flux: flux},
+          React.createElement(Handler, state)
+        )
+      );
+
       // Send view.
       reply.view('index', {
         PRODUCTION: process.env.PRODUCTION,
         title: DocumentTitle.rewind(),
-        content: React.renderToString(React.createElement(Handler, null)),
+        content: content,
         dataBootstrap
       });
     });
