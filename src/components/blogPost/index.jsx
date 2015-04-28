@@ -2,6 +2,8 @@
 
 require('./styles.less');
 
+const utils = require('../../utils');
+
 const React = require('react');
 
 const BlogPost = React.createClass({
@@ -10,7 +12,7 @@ const BlogPost = React.createClass({
     url: React.PropTypes.string,
     title: React.PropTypes.string,
     excerpt: React.PropTypes.string,
-    date: React.PropTypes.string,
+    date: React.PropTypes.number,
     tags: React.PropTypes.arrayOf(React.PropTypes.shape({
       title: React.PropTypes.string,
       url: React.PropTypes.string
@@ -22,18 +24,19 @@ const BlogPost = React.createClass({
     };
   },
 
-  render: function() {
+  render() {
     return (
-      <div className="container-fluid">
-        <div className="row">
-          <div className="col-md-12">
-            <a href={this.props.url}>title: {this.props.title}</a>
-            <span>excerpt: {this.props.excerpt}</span>
-            <span>date: {this.props.date}</span>
-            <span>tags: {this.props.tags}</span>
+      <a href={this.props.url} className="blog-post col-md-3">
+        <div className="blog-post-head">
+          <div className="blog-title">
+            {this.props.title}
           </div>
+
+          <div className="blog-date">{utils.prettyDate(this.props.date)}</div>
         </div>
-      </div>
+
+        <div className="blog-excerpt">{utils.trimString(this.props.excerpt, 30)}</div>
+      </a>
     );
   }
 });

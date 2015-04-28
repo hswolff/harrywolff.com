@@ -5,22 +5,38 @@ require('./styles.less');
 const React = require('react');
 const DocumentTitle = require('react-document-title');
 
-const BlogPosts = require('../../components/BlogPosts');
-const PinboardPosts = require('../../components/PinboardPosts');
+const BlogPost = require('../../components/blogPost');
+
+const fluxMixin = require('flummox/mixin');
 
 module.exports = React.createClass({
+  mixins: [fluxMixin(['blog'])],
+
   render: function() {
     return (
       <div className="container-fluid">
         <DocumentTitle title="Home | Harry Wolff" />
         <div className="row">
-          <div className="col-md-6 col-md-offset-3">
-            <h1>Index</h1>
+          <div className="col-md-12 no-gutter blog-post-container">
 
-            <BlogPosts />
+            <div className="blog-post tile-separater col-md-3">
+              <div className="blog-post-head">
+                <div className="tile-title">
+                  Posts
+                </div>
+              </div>
+            </div>
+
+            {(this.renderBlogPosts())}
           </div>
         </div>
       </div>
     );
+  },
+
+  renderBlogPosts() {
+    return this.state.items.map(function(post, index) {
+      return (<BlogPost key={index} {...post} />);
+    });
   }
 });

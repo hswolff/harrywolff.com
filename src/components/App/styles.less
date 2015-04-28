@@ -4,6 +4,8 @@
 @import "~bootstrap/less/mixins.less";
 @import "~bootstrap/less/grid.less";
 
+@import "~src/styles/variables.less";
+
 *, *:before, *:after {
   -moz-box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -11,7 +13,12 @@
 }
 
 body {
-  background: #f5f5f5;
+  background: @backgroundColor;
   font-family: 'Lucida Grande', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   color: #333;
+}
+
+.no-gutter {
+  padding-left: 0;
+  padding-right: 0;
 }

@@ -42,7 +42,10 @@ module.exports = function(production) {
 
     resolve: {
       extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx'],
-      root: [path.join(__dirname, 'bower_components')]
+      root: [
+        path.join(__dirname, 'bower_components'),
+        path.join(__dirname)
+      ]
     },
 
     module: {

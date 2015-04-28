@@ -19,7 +19,7 @@ function formatPosts(rawPosts) {
       title: postTitleEl.textContent,
       url: postTitleEl.href,
       excerpt: postNode.querySelector('.post-excerpt > p').textContent.replace(' »', ''),
-      date: new Date(postNode.querySelector('time').textContent),
+      date: (new Date(postNode.querySelector('time').textContent)).getTime(),
       tags: toArray(postNode.querySelectorAll('footer > span > a')).map(function(tagNode) {
         return {
           title: tagNode.textContent,
