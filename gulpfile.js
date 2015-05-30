@@ -3,6 +3,7 @@
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var childProcess = require('child_process');
+var fs = require('fs-extra');
 
 gulp.task('lint', function () {
   return gulp.src([
@@ -24,6 +25,12 @@ gulp.task('images', function () {
 });
 
 gulp.task('transpile-src', function(cb) {
+  [
+    'public',
+    'server/views'
+  ].forEach(function(dir) {
+    fs.copySync('src/' + dir, 'dist/' + dir);
+  });
   childProcess.exec('babel src --out-dir dist', cb);
 });
 

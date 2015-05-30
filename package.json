@@ -10,7 +10,7 @@
     "node": ">=0.12.0"
   },
   "scripts": {
-    "start": "PRODUCTION=true nodemon dist/server.js"
+    "start": "PRODUCTION=true nodemon dist/server"
   },
   "dependencies": {
     "bootstrap": "^3.3.4",
@@ -36,6 +36,7 @@
     "eslint-plugin-react": "^2.4.0",
     "extract-text-webpack-plugin": "^0.8.1",
     "file-loader": "^0.8.4",
+    "fs-extra": "^0.18.4",
     "gulp": "^3.8.11",
     "gulp-cache": "^0.2.9",
     "gulp-eslint": "^0.12.0",
