@@ -16,7 +16,7 @@ const Nav = require('../nav');
 module.exports = React.createClass({
   render() {
     return (
-      <div>
+      <div className="container-fluid">
         <DocumentTitle title="Harry Wolff" />
         <Header />
         <Nav />

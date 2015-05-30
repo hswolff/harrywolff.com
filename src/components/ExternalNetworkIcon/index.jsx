@@ -1,7 +1,6 @@
 'use strict';
 
 require('./styles.less');
-require('./twitter-tooltip.css');
 
 const React = require('react');
 const {Tooltip, OverlayTrigger} = require('react-bootstrap');

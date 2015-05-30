@@ -14,21 +14,19 @@ module.exports = React.createClass({
 
   render: function() {
     return (
-      <div className="container-fluid">
+      <div className="row">
         <DocumentTitle title="Home | Harry Wolff" />
-        <div className="row">
-          <div className="col-md-12 no-gutter blog-post-container">
+        <div className="col-md-12 no-gutter blog-post-container">
 
-            <div className="blog-post tile-separater col-md-3">
-              <div className="blog-post-head">
-                <div className="tile-title">
-                  Posts
-                </div>
+          <div className="blog-post tile-separater col-md-3">
+            <div className="blog-post-head">
+              <div className="tile-title">
+                Posts
               </div>
             </div>
-
-            {(this.renderBlogPosts())}
           </div>
+
+          {(this.renderBlogPosts())}
         </div>
       </div>
     );

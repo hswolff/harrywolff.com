@@ -8,12 +8,15 @@
   justify-content: center;
   align-items: center;
 
-  text-decoration: none;
-  color: inherit;
-
   transition: 0.25s ease;
   transition-property: opacity background;
   opacity: 0.7;
+
+  &, &:hover {
+    text-decoration: none;
+    color: inherit;
+  }
+
   &:hover {
     opacity: 1.0;
     background: lighten(@backgroundColor, 20%);
@@ -31,6 +34,7 @@
 }
 
   .blog-title {
+    font-size: 1.0rem;
     flex-grow: 2;
   }
 

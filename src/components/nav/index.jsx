@@ -12,8 +12,8 @@ const Nav = React.createClass({
 
   render() {
     return (
-      <nav className="main-nav">
-        <ul>
+      <nav className="row">
+        <ul className="col-md-12 main-nav">
           {this.renderNavItem('app', 'Home')}
           {this.renderNavItem('about', 'About')}
         </ul>
@@ -23,7 +23,7 @@ const Nav = React.createClass({
 
   renderNavItem(link, text) {
     return (
-      <li className="nav-item">
+      <li className="main-navItem">
         <Link to={link}>{text}</Link>
       </li>
     );
