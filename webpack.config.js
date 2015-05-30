@@ -32,9 +32,6 @@ module.exports = function(production) {
     devtool: false,
 
     plugins: [
-      new webpack.ResolverPlugin(
-        new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])
-      ),
       new webpack.ProvidePlugin({
         React: 'react'
       })
@@ -43,7 +40,6 @@ module.exports = function(production) {
     resolve: {
       extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx'],
       root: [
-        path.join(__dirname, 'bower_components'),
         path.join(__dirname)
       ]
     },
@@ -55,7 +51,7 @@ module.exports = function(production) {
       preLoaders: [
         {
           test: /\.js$/,
-          exclude: /node_modules|bower_components/,
+          exclude: /node_modules/,
           loader: 'eslint-loader'
         }
       ],
@@ -63,7 +59,7 @@ module.exports = function(production) {
       loaders: [
         {
           test: /\.jsx?$/,
-          exclude: /node_modules|bower_components/,
+          exclude: /node_modules/,
           loaders: jsxLoaders
         },
         {
