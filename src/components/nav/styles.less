@@ -2,9 +2,20 @@
 
 .main-nav {
   text-align: center;
+  margin-top: 10px;
 }
 
 .main-navItem {
-  list-style-type: none;
   display: inline-block;
+  padding: 20px;
+  color: inherit;
+  transition: color 0.2s ease;
+
+  border-top: 1px solid transparent;
+
+  &:hover, &:focus {
+    color: #A8B5B9;
+    text-decoration: none;
+    border-top: 1px solid @color-grayBorder;
+  }
 }
