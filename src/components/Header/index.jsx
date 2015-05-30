@@ -3,9 +3,6 @@
 require('./styles.less');
 
 const React = require('react');
-const {
-  Link
-} = require('react-router');
 
 const ExternalNetworkIcon = require('../ExternalNetworkIcon');
 
@@ -19,8 +16,6 @@ module.exports = React.createClass({
               <h1 className="header-text">Harry <div className="header-link-img" /> Wolff</h1>
             </a>
 
-            <p className="welcome">Welcome back to my lovely abode!</p>
-
             <div id="external-networks" className="external-networks">
               <ExternalNetworkIcon url="https://twitter.com/hswolff" title="Twitter" />
               <ExternalNetworkIcon url="https://www.facebook.com/harrywolff" title="Facebook" />
@@ -31,13 +26,6 @@ module.exports = React.createClass({
               <ExternalNetworkIcon url="https://github.com/hswolff" title="GitHub" />
             </div>
           </div>
-
-          <header style={{display: 'block'}}>
-            <ul>
-              <li><Link to="app">Dashboard</Link></li>
-              <li><Link to="about">About</Link></li>
-            </ul>
-          </header>
         </div>
       </header>
     );
