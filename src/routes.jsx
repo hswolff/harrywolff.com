@@ -6,7 +6,7 @@ const {
   Route,
 } = require('react-router');
 
-const App = require('./components/App');
+const App = require('./components/app');
 const Home = require('./pages/home');
 const About = require('./pages/about');
 

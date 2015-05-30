@@ -10,7 +10,7 @@ const {
 
 const DocumentTitle = require('react-document-title');
 
-const Header = require('../Header');
+const Header = require('../header');
 const Nav = require('../nav');
 
 module.exports = React.createClass({
