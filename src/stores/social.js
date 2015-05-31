@@ -2,14 +2,15 @@
 
 const { Store } = require('flummox');
 
-class Pinboard extends Store {
+class SocialStore extends Store {
   constructor() {
     super();
 
     this.state = {
-      items: []
+      blog: [],
+      pinboard: []
     };
   }
 }
 
-module.exports = Pinboard;
+module.exports = SocialStore;

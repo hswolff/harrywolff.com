@@ -12,7 +12,7 @@ const fluxMixin = require('flummox/mixin');
 
 module.exports = React.createClass({
   mixins: [
-    fluxMixin(['blog'])
+    fluxMixin(['social'])
   ],
 
   render: function() {
@@ -20,23 +20,27 @@ module.exports = React.createClass({
       <div className="row">
         <DocumentTitle title="Home | Harry Wolff" />
         <div className="col-md-12 no-gutter blog-post-container">
-
-          <SquareBox className="tile-separater" href="http://blog.hswolff.com/">
-            <div className="blog-post-head">
-              <div className="tile-title">
-                Blog Posts
-              </div>
-            </div>
-          </SquareBox>
-
+          {(this.renderTileSeparater('Blog Posts', 'http://blog.hswolff.com/'))}
           {(this.renderBlogPosts())}
         </div>
       </div>
     );
   },
 
+  renderTileSeparater(title, url) {
+    return (
+      <SquareBox className="tile-separater" href={url}>
+        <div className="blog-post-head">
+          <div className="tile-title">
+            {title}
+          </div>
+        </div>
+      </SquareBox>
+    );
+  },
+
   renderBlogPosts() {
-    return this.state.items.map(function(post, index) {
+    return this.state.blog.map(function(post, index) {
       return (<BlogPost key={index} {...post} />);
     });
   }
