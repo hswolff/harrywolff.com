@@ -20,7 +20,7 @@ module.exports = React.createClass({
   render: function() {
     return (
       <OverlayTrigger
-          placement="bottom"
+          placement="top"
           overlay={<Tooltip>{this.props.title}</Tooltip>}>
 
         <a href={this.props.url} title={this.props.title}>
