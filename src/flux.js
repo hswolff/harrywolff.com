@@ -10,7 +10,7 @@ class Flux extends Flummox {
 
     for (let key in initialData) {
       this.getStore('social').setState({
-        [key]: initialData[key]
+        [key]: initialData[key].slice(0, 10)
       });
     }
   }
