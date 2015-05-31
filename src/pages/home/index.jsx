@@ -40,7 +40,7 @@ module.exports = React.createClass({
   },
 
   renderBlogPosts() {
-    return this.state.blog.map(function(post, index) {
+    return this.state.blog.splice(0, 10).map(function(post, index) {
       return (
         <SquareBox
           key={index}
@@ -54,7 +54,7 @@ module.exports = React.createClass({
   },
 
   renderPinterestPosts() {
-    return this.state.pinboard.splice(0, 6).map(function(item, index) {
+    return this.state.pinboard.splice(0, 10).map(function(item, index) {
       return (
         <SquareBox
           key={index}
