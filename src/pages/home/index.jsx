@@ -2,10 +2,11 @@
 
 require('./styles.less');
 
+const utils = require('../../utils');
+
 const React = require('react');
 const DocumentTitle = require('react-document-title');
 
-const BlogPost = require('../../components/blogPost');
 const SquareBox = require('../../components/squareBox');
 
 const fluxMixin = require('flummox/mixin');
@@ -20,28 +21,48 @@ module.exports = React.createClass({
       <div className="row">
         <DocumentTitle title="Home | Harry Wolff" />
         <div className="col-md-12 no-gutter blog-post-container">
-          {(this.renderTileSeparater('Blog Posts', 'http://blog.hswolff.com/'))}
+          <SquareBox
+            className="tile-separater"
+            title="Blog Posts"
+            href="http://blog.hswolff.com/"
+          />
           {(this.renderBlogPosts())}
+
+          <SquareBox
+            className="tile-separater"
+            title="Linkroll"
+            href="https://pinboard.in/u:hswolff"
+          />
+          {(this.renderPinterestPosts())}
         </div>
       </div>
     );
   },
 
-  renderTileSeparater(title, url) {
-    return (
-      <SquareBox className="tile-separater" href={url}>
-        <div className="blog-post-head">
-          <div className="tile-title">
-            {title}
-          </div>
-        </div>
-      </SquareBox>
-    );
-  },
-
   renderBlogPosts() {
     return this.state.blog.map(function(post, index) {
-      return (<BlogPost key={index} {...post} />);
+      return (
+        <SquareBox
+          key={index}
+          href={post.url}
+          title={post.title}
+          subTitle={utils.prettyDate(post.date)}
+          moreText={utils.trimString(post.excerpt, 30)}
+        />
+      );
+    });
+  },
+
+  renderPinterestPosts() {
+    return this.state.pinboard.splice(0, 6).map(function(item, index) {
+      return (
+        <SquareBox
+          key={index}
+          href={item.url}
+          title={item.title}
+          subTitle={item.tags.join(', ')}
+        />
+      );
     });
   }
 });
