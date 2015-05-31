@@ -4,7 +4,7 @@ require('./styles.less');
 
 const React = require('react');
 
-const ExternalNetworkIcon = require('../../components/ExternalNetworkIcon');
+const ExternalNetworkIcon = require('../../components/externalNetworkIcon');
 
 module.exports = React.createClass({
   render: function() {
