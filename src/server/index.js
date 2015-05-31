@@ -1,13 +1,40 @@
 'use strict';
 
+/**
+ * Patches node's require() statement to ignore any style files (css/less).
+ * This is a quick patch to allow for rendering React views that require css or
+ * less via webpack to work in node.
+ * @TODO: don't do this?
+ */
+(function patchRequire() {
+  var Module = require('module');
+  var oldRequire = Module.prototype.require;
+
+  Module.prototype.require = function(requirePath) {
+    // Ignore style files.
+    if (requirePath.match(/\.(c|le)ss$/)) {
+      return '';
+    }
+
+    return oldRequire.apply(this, arguments);
+  };
+})();
+
 const Hapi = require('hapi');
 const path = require('path');
 
 const React = require('react');
 const Router = require('react-router');
 const DocumentTitle = require('react-document-title');
-const { Flux } = require('../flux');
 const FluxComponent = require('flummox/component');
+const { Flux } = require('../flux');
+
+const api = {
+  blog: require('./api/blog'),
+  pinboard: require('./api/pinboard')
+};
+
+const routes = require('../routes');
 
 const server = new Hapi.Server();
 
@@ -53,8 +80,8 @@ server.ext('onPreResponse', function(request, reply) {
   }
 
   Promise.all([
-    require('./api/blog')(),
-    require('./api/pinboard')()
+    api.blog(),
+    api.pinboard()
   ]).then(values => {
     return {
       blog: values[0],
@@ -63,7 +90,7 @@ server.ext('onPreResponse', function(request, reply) {
   }).then(dataBootstrap => {
     let flux = new Flux(dataBootstrap);
 
-    Router.run(require('../routes'), request.path, function(Handler, state) {
+    Router.run(routes, request.path, function(Handler, state) {
       let content = React.renderToString(
         React.createElement(FluxComponent, {flux: flux},
           React.createElement(Handler, state)
@@ -84,26 +111,3 @@ server.ext('onPreResponse', function(request, reply) {
 server.start(() => {
   console.log('Server running at:', server.info.uri);
 });
-
-/**
- * Patches node's require() statement to ignore any style files (css/less).
- * This is a quick patch to allow for rendering React views that require css or
- * less via webpack to work in node.
- * @TODO: don't do this?
- */
-function patchRequire() {
-  var Module = require('module');
-  var oldRequire = Module.prototype.require;
-
-  Module.prototype.require = function(requirePath) {
-    // Ignore style files.
-    if (requirePath.match(/\.(c|le)ss$/)) {
-      return '';
-    }
-
-    return oldRequire.apply(this, arguments);
-  };
-}
-
-// Patch require.
-patchRequire();
