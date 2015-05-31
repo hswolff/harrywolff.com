@@ -3,6 +3,7 @@
 .square-box {
   border: 1px solid @color-grayBorder;
   height: 200px;
+  overflow: hidden;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
@@ -43,5 +44,15 @@
   }
 
 .square-box-moreText {
-  display: none;
+  position: absolute;
+  height: 100%;
+  transition: bottom 0.35s ease-in-out;
+  bottom: -100%;
+  background: white;
+  margin-left: -10px;
+  padding: 20px;
+}
+
+.square-box:hover .square-box-moreText {
+  bottom: 0%;
 }

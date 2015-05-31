@@ -25,7 +25,9 @@ const SquareBox = React.createClass({
           <div className="square-box-subTitle">{this.props.subTitle}</div>
         </div>
 
-        <div className="square-box-moreText">{this.props.moreText}</div>
+        {this.props.moreText ? (
+          <div className="square-box-moreText">{this.props.moreText}</div>
+        ) : null}
       </a>
     );
   }

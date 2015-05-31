@@ -1,6 +1,8 @@
 'use strict';
 
 var fetch = require('node-fetch');
+var striptags = require('striptags');
+var he = require('he');
 
 /**
  * Gets the most recent posts from blog.
@@ -14,7 +16,7 @@ module.exports = function() {
         return {
           title: item.title,
           url: `http://blog.hswolff.com/${item.slug}/`,
-          excerpt: item.excerpt,
+          excerpt: he.decode(striptags(item.excerpt)),
           date: (new Date(item.date)).getTime(),
           tags: item.tags.map(function(tag) {
             return {
