@@ -1,0 +1,28 @@
+@import "~src/styles/variables.less";
+
+.square-box {
+  border: 1px solid @color-grayBorder;
+  height: 200px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+
+  transition: 0.25s ease;
+  transition-property: opacity background;
+  opacity: 0.7;
+
+  &, &:hover {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  &:hover {
+    opacity: 1.0;
+    background: lighten(@backgroundColor, 20%);
+  }
+}
+
+.square-box + .square-box {
+  border-left: 0;
+}

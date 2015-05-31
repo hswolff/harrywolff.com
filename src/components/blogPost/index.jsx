@@ -6,6 +6,8 @@ const utils = require('../../utils');
 
 const React = require('react');
 
+const SquareBox = require('../squareBox');
+
 const BlogPost = React.createClass({
 
   propTypes: {
@@ -26,7 +28,7 @@ const BlogPost = React.createClass({
 
   render() {
     return (
-      <a href={this.props.url} className="blog-post col-md-3">
+      <SquareBox href={this.props.url}>
         <div className="blog-post-head">
           <div className="blog-title">
             {this.props.title}
@@ -36,7 +38,7 @@ const BlogPost = React.createClass({
         </div>
 
         <div className="blog-excerpt">{utils.trimString(this.props.excerpt, 30)}</div>
-      </a>
+      </SquareBox>
     );
   }
 });

@@ -6,11 +6,14 @@ const React = require('react');
 const DocumentTitle = require('react-document-title');
 
 const BlogPost = require('../../components/blogPost');
+const SquareBox = require('../../components/squareBox');
 
 const fluxMixin = require('flummox/mixin');
 
 module.exports = React.createClass({
-  mixins: [fluxMixin(['blog'])],
+  mixins: [
+    fluxMixin(['blog'])
+  ],
 
   render: function() {
     return (
@@ -18,13 +21,13 @@ module.exports = React.createClass({
         <DocumentTitle title="Home | Harry Wolff" />
         <div className="col-md-12 no-gutter blog-post-container">
 
-          <div className="blog-post tile-separater col-md-3">
+          <SquareBox className="tile-separater" href="http://blog.hswolff.com/">
             <div className="blog-post-head">
               <div className="tile-title">
-                Posts
+                Blog Posts
               </div>
             </div>
-          </div>
+          </SquareBox>
 
           {(this.renderBlogPosts())}
         </div>
