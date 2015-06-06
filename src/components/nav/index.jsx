@@ -1,15 +1,12 @@
-'use strict';
-
 require('./styles.less');
 
-const React = require('react');
+import React from 'react';
 
-const {
+import {
   Link
-} = require('react-router');
+} from 'react-router';
 
-const Nav = React.createClass({
-
+export default class Nav extends React.Component {
   render() {
     return (
       <nav className="col-md-12 main-nav">
@@ -19,13 +16,11 @@ const Nav = React.createClass({
         </div>
       </nav>
     );
-  },
+  }
 
   renderNavItem(link, text) {
     return (
       <Link to={link} className="main-navItem">{text}</Link>
     );
   }
-});
-
-module.exports = Nav;
+}

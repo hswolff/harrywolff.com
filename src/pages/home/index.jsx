@@ -1,15 +1,11 @@
-'use strict';
-
 require('./styles.less');
 
-const utils = require('../../utils');
-
-const React = require('react');
-const DocumentTitle = require('react-document-title');
-
-const SquareBox = require('../../components/squareBox');
-
+import React from 'react';
+import DocumentTitle from 'react-document-title';
 import connectToStores from 'flummox/connect';
+
+import utils from '../../utils';
+import SquareBox from '../../components/squareBox';
 
 class HomePage extends React.Component {
   render() {
@@ -62,6 +58,12 @@ class HomePage extends React.Component {
     });
   }
 }
+
+HomePage.propTypes = {
+  blog: React.PropTypes.array,
+  pinboard: React.PropTypes.array
+};
+
 
 HomePage = connectToStores(HomePage, ['social']);
 

@@ -1,19 +1,8 @@
-'use strict';
-
 require('./styles.less');
 
-const React = require('react');
+import React from 'react';
 
-const SquareBox = React.createClass({
-
-  propTypes: {
-    href: React.PropTypes.string,
-    className: React.PropTypes.string,
-    title: React.PropTypes.string,
-    subTitle: React.PropTypes.string,
-    moreText: React.PropTypes.string
-  },
-
+class SquareBox extends React.Component {
   render() {
     return (
       <a href={this.props.href} className={'square-box col-md-3 ' + (this.props.className || '')}>
@@ -31,6 +20,14 @@ const SquareBox = React.createClass({
       </a>
     );
   }
-});
+}
 
-module.exports = SquareBox;
+SquareBox.propTypes = {
+  href: React.PropTypes.string,
+  className: React.PropTypes.string,
+  title: React.PropTypes.string,
+  subTitle: React.PropTypes.string,
+  moreText: React.PropTypes.string
+};
+
+export default SquareBox;

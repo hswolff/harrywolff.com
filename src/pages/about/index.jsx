@@ -1,8 +1,6 @@
-'use strict';
-
 require('./styles.less');
 
-const React = require('react');
+import React from 'react';
 
 import ExternalNetworkIcon from '../../components/externalNetworkIcon';
 

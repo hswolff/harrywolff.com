@@ -1,8 +1,6 @@
-'use strict';
+import { Store } from 'flummox';
 
-const { Store } = require('flummox');
-
-class SocialStore extends Store {
+export default class SocialStore extends Store {
   constructor() {
     super();
 
@@ -12,5 +10,3 @@ class SocialStore extends Store {
     };
   }
 }
-
-module.exports = SocialStore;

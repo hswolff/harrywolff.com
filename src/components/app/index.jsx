@@ -1,18 +1,16 @@
-'use strict';
-
 require('./styles.less');
 
-const React = require('react');
+import React from 'react';
 
-const {
+import {
   RouteHandler
-} = require('react-router');
+} from 'react-router';
 
-const DocumentTitle = require('react-document-title');
+import DocumentTitle from 'react-document-title';
 
-const Header = require('../header');
+import Header from '../header';
 
-module.exports = React.createClass({
+export default class App extends React.Component {
   render() {
     return (
       <div className="container-fluid">
@@ -23,4 +21,4 @@ module.exports = React.createClass({
       </div>
     );
   }
-});
+}

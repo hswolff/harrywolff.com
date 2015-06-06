@@ -1,16 +1,14 @@
-'use strict';
-
-const React = require('react');
-const {
+import React from 'react';
+import {
   DefaultRoute,
-  Route,
-} = require('react-router');
+  Route
+} from 'react-router';
 
-const App = require('./components/app');
+import App from './components/app';
 import HomePage from './pages/home';
 import AboutPage from './pages/about';
 
-module.exports = (
+export default (
   <Route path="/" handler={App}>
     <Route name="about" handler={AboutPage}/>
     <DefaultRoute name="home" handler={HomePage}/>

@@ -1,14 +1,14 @@
-'use strict';
+import React from 'react';
+import Router from 'react-router';
 
-const React = require('react');
-const Router = require('react-router');
+import Flux from '../flux';
+import FluxComponent from 'flummox/component';
 
-const { Flux } = require('../flux');
-const FluxComponent = require('flummox/component');
+import routes from '../routes';
 
 let flux = new Flux(window.dataBootstrap);
 
-Router.run(require('../routes'), Router.HistoryLocation, function(Handler) {
+Router.run(routes, Router.HistoryLocation, function(Handler) {
   React.render(
     <FluxComponent flux={flux}>
       <Handler/>

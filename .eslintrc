@@ -8,7 +8,8 @@
     "node": true
   },
   "ecmaFeatures": {
-    "jsx": true
+    "jsx": true,
+    "modules": true
   },
   "rules": {
     "quotes": [1, "single"],

@@ -1,13 +1,11 @@
-'use strict';
-
 require('./styles.less');
 
-const React = require('react');
+import React from 'react';
 
-const Nav = require('../nav');
+import Nav from '../nav';
 
-module.exports = React.createClass({
-  render: function() {
+export default class Header extends React.Component {
+  render() {
     return (
       <header className="row header">
         <div className="col-md-12">
@@ -20,4 +18,4 @@ module.exports = React.createClass({
       </header>
     );
   }
-});
+}

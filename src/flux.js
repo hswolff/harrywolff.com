@@ -1,8 +1,6 @@
-'use strict';
+import Flummox from 'flummox';
 
-const { Flummox } = require('flummox');
-
-class Flux extends Flummox {
+export default class Flux extends Flummox {
   constructor(initialData) {
     super();
 
@@ -16,5 +14,3 @@ class Flux extends Flummox {
     }
   }
 }
-
-exports.Flux = Flux;

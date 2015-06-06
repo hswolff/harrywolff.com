@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * Patches node's require() statement to ignore any style files (css/less).
  * This is a quick patch to allow for rendering React views that require css or
@@ -27,7 +25,7 @@ const React = require('react');
 const Router = require('react-router');
 const DocumentTitle = require('react-document-title');
 const FluxComponent = require('flummox/component');
-const { Flux } = require('../flux');
+const Flux = require('../flux');
 
 const api = {
   blog: require('./api/blog'),

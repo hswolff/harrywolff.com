@@ -1,8 +1,6 @@
-'use strict';
-
 require('./styles.less');
 
-const React = require('react');
+import React from 'react';
 import {
   Tooltip,
   OverlayTrigger
@@ -34,4 +32,4 @@ ExternalNetworkIcon.propTypes = {
   url: React.PropTypes.string
 };
 
-export default ExternalNetworkIcon
+export default ExternalNetworkIcon;
