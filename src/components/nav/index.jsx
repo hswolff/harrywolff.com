@@ -12,9 +12,9 @@ const Nav = React.createClass({
 
   render() {
     return (
-      <nav className="row main-nav">
+      <nav className="col-md-12 main-nav">
         <div className="col-md-12">
-          {this.renderNavItem('app', 'Home')}
+          {this.renderNavItem('home', 'Home')}
           {this.renderNavItem('about', 'About')}
         </div>
       </nav>

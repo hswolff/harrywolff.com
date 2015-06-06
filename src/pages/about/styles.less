@@ -1,3 +1,37 @@
 .page-about {
   text-align: center;
 }
+
+.about-banner-container {
+  &:hover {
+    .about-banner-default {
+      display: none;
+    }
+
+    .about-banner-hover {
+      display: block;
+    }
+  }
+}
+
+.about-banner {
+  width: 100%;
+}
+
+.about-banner-hover {
+  display: none;
+}
+
+.about-banner-text {
+  position: absolute;
+  top: 30px;
+  width: 100%;
+  text-align: center;
+  color: #fff;
+  font-size: 2.6rem;
+  font-family: 'Merriweather', Baskerville, serif;
+}
+
+.about-social-networks {
+  margin: 120px 0;
+}

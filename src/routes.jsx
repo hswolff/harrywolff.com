@@ -7,12 +7,12 @@ const {
 } = require('react-router');
 
 const App = require('./components/app');
-const Home = require('./pages/home');
-const About = require('./pages/about');
+import HomePage from './pages/home';
+import AboutPage from './pages/about';
 
 module.exports = (
-  <Route name="app" path="/" handler={App}>
-    <Route name="about" handler={About}/>
-    <DefaultRoute handler={Home}/>
+  <Route path="/" handler={App}>
+    <Route name="about" handler={AboutPage}/>
+    <DefaultRoute name="home" handler={HomePage}/>
   </Route>
 );

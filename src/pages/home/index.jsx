@@ -9,27 +9,23 @@ const DocumentTitle = require('react-document-title');
 
 const SquareBox = require('../../components/squareBox');
 
-const fluxMixin = require('flummox/mixin');
+import connectToStores from 'flummox/connect';
 
-module.exports = React.createClass({
-  mixins: [
-    fluxMixin(['social'])
-  ],
-
-  render: function() {
+class HomePage extends React.Component {
+  render() {
     return (
       <div className="row">
         <DocumentTitle title="Home | Harry Wolff" />
         <div className="col-md-12 no-gutter blog-post-container">
           <SquareBox
-            className="tile-separater"
+            className="tile-separater tile-separater-blog"
             title="Blog Posts"
             href="http://blog.hswolff.com/"
           />
           {(this.renderBlogPosts())}
 
           <SquareBox
-            className="tile-separater"
+            className="tile-separater tile-separater-linkroll"
             title="Linkroll"
             href="https://pinboard.in/u:hswolff"
           />
@@ -37,10 +33,10 @@ module.exports = React.createClass({
         </div>
       </div>
     );
-  },
+  }
 
   renderBlogPosts() {
-    return this.state.blog.map(function(post, index) {
+    return this.props.blog.map(function(post, index) {
       return (
         <SquareBox
           key={index}
@@ -51,10 +47,10 @@ module.exports = React.createClass({
         />
       );
     });
-  },
+  }
 
   renderPinterestPosts() {
-    return this.state.pinboard.map(function(item, index) {
+    return this.props.pinboard.map(function(item, index) {
       return (
         <SquareBox
           key={index}
@@ -65,4 +61,8 @@ module.exports = React.createClass({
       );
     });
   }
-});
+}
+
+HomePage = connectToStores(HomePage, ['social']);
+
+export default HomePage;

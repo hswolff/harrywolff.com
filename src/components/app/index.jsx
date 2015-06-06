@@ -11,7 +11,6 @@ const {
 const DocumentTitle = require('react-document-title');
 
 const Header = require('../header');
-const Nav = require('../nav');
 
 module.exports = React.createClass({
   render() {
@@ -19,7 +18,6 @@ module.exports = React.createClass({
       <div className="container-fluid">
         <DocumentTitle title="Harry Wolff" />
         <Header />
-        <Nav />
 
         <RouteHandler/>
       </div>

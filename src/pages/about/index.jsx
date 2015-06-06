@@ -4,13 +4,20 @@ require('./styles.less');
 
 const React = require('react');
 
-const ExternalNetworkIcon = require('../../components/externalNetworkIcon');
+import ExternalNetworkIcon from '../../components/externalNetworkIcon';
 
-module.exports = React.createClass({
-  render: function() {
+export default class AboutPage extends React.Component {
+  render() {
     return (
       <div className="row page-about">
-        <div className="col-md-12">
+        <div className="col-md-12 no-gutter about-banner-container">
+          <img src="/images/background_about.jpg" className="about-banner about-banner-default" />
+          <img src="/images/background_about_hover.jpg" className="about-banner about-banner-hover" />
+
+          <h2 className="about-banner-text">Harry Wolff. Wolff with two fs. The extra &lsquo;f&rsquo; is for good luck.</h2>
+        </div>
+
+        <div className="col-md-12 about-social-networks">
           <h3>Find Me Online</h3>
 
           <div className="external-networks">
@@ -26,4 +33,4 @@ module.exports = React.createClass({
       </div>
     );
   }
-});
+}

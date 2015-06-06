@@ -3,21 +3,19 @@
 require('./styles.less');
 
 const React = require('react');
-const {Tooltip, OverlayTrigger} = require('react-bootstrap');
+import {
+  Tooltip,
+  OverlayTrigger
+} from 'react-bootstrap';
 
-module.exports = React.createClass({
-  propTypes: {
-    title: React.PropTypes.string,
-    url: React.PropTypes.string
-  },
-
-  getImageNamed: function(name) {
+class ExternalNetworkIcon extends React.Component {
+  getImageNamed(name) {
     // @TODO: switch to use webpack's url-loader (and make server not barf on it).
     // return require('../../public/images/external-networks/' + name);
     return '/images/external-networks/' + name + '.png';
-  },
+  }
 
-  render: function() {
+  render() {
     return (
       <OverlayTrigger
           placement="top"
@@ -29,4 +27,11 @@ module.exports = React.createClass({
       </OverlayTrigger>
     );
   }
-});
+}
+
+ExternalNetworkIcon.propTypes = {
+  title: React.PropTypes.string,
+  url: React.PropTypes.string
+};
+
+export default ExternalNetworkIcon
