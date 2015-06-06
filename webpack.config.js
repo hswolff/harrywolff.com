@@ -114,7 +114,7 @@ module.exports = function(production) {
 
     config.cache = true;
     config.debug = true;
-    config.devtool = 'eval-sourcemap';
+    config.devtool = '#cheap-module-eval-source-map';
 
     config.output.path = path.join(__dirname, './src/public/assets');
     config.output.publicPath = 'http://0.0.0.0:9000/assets/';
