@@ -1,6 +1,7 @@
 require('./styles.less');
 
 import React from 'react';
+import DocumentTitle from 'react-document-title';
 
 import ExternalNetworkIcon from '../../components/externalNetworkIcon';
 
@@ -8,6 +9,7 @@ export default class AboutPage extends React.Component {
   render() {
     return (
       <div className="row page-about">
+        <DocumentTitle title="About | Harry Wolff" />
         <div className="col-md-12 no-gutter about-banner-container">
           <img src="/images/background_about.jpg" className="about-banner about-banner-default" />
           <img src="/images/background_about_hover.jpg" className="about-banner about-banner-hover" />

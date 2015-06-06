@@ -1,7 +1,6 @@
 require('./styles.less');
 
 import React from 'react';
-import DocumentTitle from 'react-document-title';
 import connectToStores from 'flummox/connect';
 
 import utils from '../../utils';
@@ -11,7 +10,6 @@ class HomePage extends React.Component {
   render() {
     return (
       <div className="row">
-        <DocumentTitle title="Home | Harry Wolff" />
         <div className="col-md-12 no-gutter blog-post-container">
           <SquareBox
             className="tile-separater tile-separater-blog"
