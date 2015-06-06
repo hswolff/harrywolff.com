@@ -1,5 +1,3 @@
-'use strict';
-
 var fetch = require('node-fetch');
 var striptags = require('striptags');
 var he = require('he');
