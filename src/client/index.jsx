@@ -6,12 +6,16 @@ import FluxComponent from 'flummox/component';
 
 import routes from '../routes';
 
-let flux = new Flux(window.dataBootstrap);
+let appEl = document.getElementById('app');
+
+let dataBootstrap = JSON.parse(appEl.dataset.bootstrap);
+
+let flux = new Flux(dataBootstrap);
 
 Router.run(routes, Router.HistoryLocation, function(Handler) {
   React.render(
     <FluxComponent flux={flux}>
       <Handler/>
     </FluxComponent>
-  , document.getElementById('app'));
+  , appEl);
 });
