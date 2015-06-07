@@ -1,15 +1,23 @@
 import Flummox from 'flummox';
 
+import SocialStore from './stores/social';
+
 export default class Flux extends Flummox {
   constructor(initialData) {
     super();
 
-    this.createStore('social', require('./stores/social'), this);
+    this.createStore('social', SocialStore, this);
 
-    for (let key in initialData) {
+    if (initialData) {
+      this.bootstrap(initialData);
+    }
+  }
+
+  bootstrap(data) {
+    for (let key in data) {
       this.getStore('social').setState({
         // Only use first 10 for now.
-        [key]: initialData[key].slice(0, 10)
+        [key]: data[key].slice(0, 10)
       });
     }
   }

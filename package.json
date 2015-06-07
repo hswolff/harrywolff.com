@@ -10,7 +10,7 @@
     "node": ">=0.12.0"
   },
   "scripts": {
-    "start": "PRODUCTION=true nodemon dist/server"
+    "start": "PRODUCTION=true node dist/server"
   },
   "dependencies": {
     "bootstrap": "^3.3.4",
