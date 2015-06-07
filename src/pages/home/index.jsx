@@ -10,7 +10,7 @@ class HomePage extends React.Component {
   render() {
     return (
       <div className="row">
-        <div className="col-md-12 no-gutter blog-post-container">
+        <div className="col-xs-12 no-gutter blog-post-container">
           <SquareBox
             className="tile-separater tile-separater-blog"
             title="Blog Posts"

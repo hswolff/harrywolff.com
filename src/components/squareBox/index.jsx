@@ -5,7 +5,7 @@ import React from 'react';
 class SquareBox extends React.Component {
   render() {
     return (
-      <a href={this.props.href} className={'square-box col-md-3 ' + (this.props.className || '')}>
+      <a href={this.props.href} className={'square-box col-sm-3 ' + (this.props.className || '')}>
         <div className="square-box-head">
           <div className="square-box-title">
             {this.props.title}

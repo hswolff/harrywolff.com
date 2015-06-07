@@ -9,8 +9,8 @@ import {
 export default class Nav extends React.Component {
   render() {
     return (
-      <nav className="col-md-12 main-nav">
-        <div className="col-md-12">
+      <nav className="col-xs-12 main-nav">
+        <div className="col-xs-12">
           {this.renderNavItem('home', 'Home')}
           {this.renderNavItem('about', 'About')}
         </div>

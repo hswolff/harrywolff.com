@@ -10,14 +10,14 @@ export default class AboutPage extends React.Component {
     return (
       <div className="row page-about">
         <DocumentTitle title="About | Harry Wolff" />
-        <div className="col-md-12 no-gutter about-banner-container">
+        <div className="col-xs-12 no-gutter about-banner-container">
           <img src="/images/background_about.jpg" className="about-banner about-banner-default" />
           <img src="/images/background_about_hover.jpg" className="about-banner about-banner-hover" />
 
           <h2 className="about-banner-text">Harry Wolff. Wolff with two fs. The extra &lsquo;f&rsquo; is for good luck.</h2>
         </div>
 
-        <div className="col-md-12 about-social-networks">
+        <div className="col-xs-12 about-social-networks">
           <h3>Find Me Online</h3>
 
           <div className="external-networks">
