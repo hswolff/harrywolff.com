@@ -16,8 +16,8 @@ export default class Flux extends Flummox {
   bootstrap(data) {
     for (let key in data) {
       this.getStore('social').setState({
-        // Only use first 10 for now.
-        [key]: data[key].slice(0, 10)
+        // Only use first 11 for now.
+        [key]: data[key].slice(0, 11)
       });
     }
   }
