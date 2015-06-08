@@ -4,6 +4,7 @@ var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var childProcess = require('child_process');
 var fs = require('fs-extra');
+var runSequence = require('run-sequence');
 
 gulp.task('lint', function () {
   return gulp.src([
@@ -133,10 +134,18 @@ gulp.task('webpack-dev-server', function(cb) {
   server.listen(9000, '0.0.0.0', cb);
 });
 
+gulp.task('build-size', function() {
+  return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
+});
+
 gulp.task('watch', ['server', 'webpack-dev-server']);
 
-gulp.task('build', ['lint', 'images', 'transpile-src', 'copy-files', 'webpack:build'], function() {
-  return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
+gulp.task('build', function(cb) {
+  runSequence(
+    [ 'lint', 'clean'],
+    ['images', 'transpile-src', 'copy-files', 'webpack:build'],
+    'build-size',
+  cb);
 });
 
 gulp.task('default', ['clean'], function() {
