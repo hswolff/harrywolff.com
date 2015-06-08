@@ -34,6 +34,11 @@ gulp.task('transpile-src', function(cb) {
   childProcess.exec('babel src --out-dir dist', cb);
 });
 
+gulp.task('copy-files', function() {
+  return gulp.src('./package.json')
+    .pipe(gulp.dest('dist'));
+});
+
 gulp.task('clean', require('del').bind(null, ['dist']));
 
 gulp.task('server', function() {
@@ -130,7 +135,7 @@ gulp.task('webpack-dev-server', function(cb) {
 
 gulp.task('watch', ['server', 'webpack-dev-server']);
 
-gulp.task('build', ['lint', 'images', 'transpile-src', 'webpack:build'], function() {
+gulp.task('build', ['lint', 'images', 'transpile-src', 'copy-files', 'webpack:build'], function() {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 
