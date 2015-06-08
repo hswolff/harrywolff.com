@@ -1,30 +1,23 @@
-/* jshint node:true */
 'use strict';
 
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
+var childProcess = require('child_process');
+var fs = require('fs-extra');
+var runSequence = require('run-sequence');
 
-gulp.task('jshint', function () {
+gulp.task('lint', function () {
   return gulp.src([
-      'app/scripts/**/*.js',
-      '!app/scripts/**/twitter*.js'
+      'src/**/*.js',
+      'src/**/*.jsx'
     ])
-    .pipe($.jshint())
-    .pipe($.jshint.reporter('jshint-stylish'))
-    .pipe($.jshint.reporter('fail'));
-});
-
-gulp.task('html', function () {
-  var assets = $.useref.assets({searchPath: '{app}'});
-
-  return gulp.src('app/*.html')
-    .pipe($.useref())
-    .pipe($.if('*.html', $.minifyHtml({conditionals: true, loose: true})))
-    .pipe(gulp.dest('dist'));
+    .pipe($.eslint())
+    .pipe($.eslint.format())
+    .pipe($.eslint.failOnError());
 });
 
 gulp.task('images', function () {
-  return gulp.src('app/images/**/*')
+  return gulp.src('src/public/images/**/*')
     .pipe($.cache($.imagemin({
       progressive: true,
       interlaced: true
@@ -32,53 +25,46 @@ gulp.task('images', function () {
     .pipe(gulp.dest('dist/images'));
 });
 
-gulp.task('fonts', function () {
-  return gulp.src(require('main-bower-files')().concat('app/fonts/**/*'))
-    .pipe($.filter('**/*.{eot,svg,ttf,woff}'))
-    .pipe($.flatten())
-    .pipe(gulp.dest('dist/fonts'));
+gulp.task('transpile-src', function(cb) {
+  [
+    'public',
+    'server/views'
+  ].forEach(function(dir) {
+    fs.copySync('src/' + dir, 'dist/' + dir);
+  });
+  childProcess.exec('babel src --out-dir dist', cb);
 });
 
-gulp.task('extras', function () {
-  return gulp.src([
-    'app/*.*',
-    '!app/*.html',
-    'node_modules/apache-server-configs/dist/.htaccess'
-  ], {
-    dot: true
-  }).pipe(gulp.dest('dist'));
+gulp.task('copy-files', function() {
+  return gulp.src('./package.json')
+    .pipe(gulp.dest('dist'));
 });
 
 gulp.task('clean', require('del').bind(null, ['dist']));
 
-function connectTask(production) {
-  var directory = production ? 'dist' : 'app';
-  var serveStatic = require('serve-static');
-  var serveIndex = require('serve-index');
-  var app = require('connect')()
-    .use(serveStatic(directory))
-    // paths to bower_components should be relative to the current file
-    // e.g. in app/index.html you should use ../bower_components
-    .use('/bower_components', serveStatic('bower_components'))
-    .use(serveIndex(directory));
+gulp.task('server', function() {
+  var nodemon = require('nodemon');
 
-  if (!production) {
-    app.use(require('connect-livereload')({port: 35729}));
-  }
+  nodemon({
+    // execMap: {
+    //   js: 'node --harmony'
+    // },
+    ignore: [
+      'test',
+      'gulpfile.js',
+      'node_modules'
+    ],
+    // ext: 'js jsx',
+    script: 'server-bootstrap.js'
+  });
 
-  require('http').createServer(app)
-    .listen(9000)
-    .on('listening', function () {
-      console.log('Started connect web server on http://localhost:9000');
-    });
-}
-
-gulp.task('connect', connectTask.bind(null, false));
-
-gulp.task('connect:build', connectTask.bind(null, true));
-
-gulp.task('serve', ['connect', 'watch'], function () {
-  require('opn')('http://localhost:9000');
+  nodemon.on('start', function () {
+    console.log('App has started');
+  }).on('quit', function () {
+    console.log('App has quit');
+  }).on('restart', function (files) {
+    console.log('App restarted due to: ', files);
+  });
 });
 
 var webpackSettings = {
@@ -96,13 +82,10 @@ var webpackSettings = {
   }
 };
 
-gulp.task('webpack:build', function() {
-  process.env.PRODUCTION = true;
-  gulp.start('webpack');
-});
+function webpackTask(production, cb) {
+  production = production ? production :
+                (process.env.PRODUCTION ? true : false);
 
-gulp.task('webpack', function(cb) {
-  var production = process.env.PRODUCTION ? true : false;
   var started = false;
   var config = require('./webpack.config')(production);
   var bundler = require('webpack')(config);
@@ -125,7 +108,11 @@ gulp.task('webpack', function(cb) {
   } else {
     bundler.watch(200, bundle);
   }
-});
+}
+
+gulp.task('webpack', webpackTask.bind(null, false));
+
+gulp.task('webpack:build', webpackTask.bind(null, true));
 
 gulp.task('webpack-dev-server', function(cb) {
   var WebpackDevServer = require('webpack-dev-server');
@@ -135,33 +122,32 @@ gulp.task('webpack-dev-server', function(cb) {
 
   var server = new WebpackDevServer(compiler, {
     filename: 'main.js',
-    contentBase: 'http://localhost:9000',
+    contentBase: 'http://0.0.0.0:8080',
     hot: true,
-    // inline: true, // doesn't seem to do anything?
     quiet: false,
     noInfo: false,
     lazy: false,
     watchDelay: 300,
-    publicPath: 'http://localhost:9000/assets/',
+    publicPath: 'http://0.0.0.0:8080/assets/',
     stats: webpackSettings.stats
   });
-  server.listen(8080, 'localhost', cb);
+  server.listen(9000, '0.0.0.0', cb);
 });
 
-gulp.task('watch', ['connect', 'webpack-dev-server'], function () {
-  $.livereload.listen();
-
-  // watch for changes
-  gulp.watch([
-    'app/*.html',
-    'app/images/**/*'
-  ]).on('change', $.livereload.changed);
-});
-
-gulp.task('build', ['jshint', 'html', 'images', 'fonts', 'extras', 'webpack:build'], function () {
+gulp.task('build-size', function() {
   return gulp.src('dist/**/*').pipe($.size({title: 'build', gzip: true}));
 });
 
-gulp.task('default', ['clean'], function () {
+gulp.task('watch', ['server', 'webpack-dev-server']);
+
+gulp.task('build', function(cb) {
+  runSequence(
+    [ 'lint', 'clean'],
+    ['images', 'transpile-src', 'copy-files', 'webpack:build'],
+    'build-size',
+  cb);
+});
+
+gulp.task('default', ['clean'], function() {
   gulp.start('build');
 });

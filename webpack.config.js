@@ -12,13 +12,18 @@ var path = require('path');
  * @return {object} Webpack configuration
  */
 module.exports = function(production) {
+  var cacheDir = path.join(__dirname, '.tmp');
+  var jsxLoaders = ['babel-loader?cacheDirectory=' + cacheDir];
+
   var config = {
     entry: {
-      app: ['webpack/hot/dev-server', './app/scripts/main.js']
+      main: [
+        './src/client/index.jsx'
+      ]
     },
 
     output: {
-      filename: 'main.js',
+      filename: '[name].js',
       publicPath: '/assets/'
     },
 
@@ -27,38 +32,71 @@ module.exports = function(production) {
     devtool: false,
 
     plugins: [
-      new webpack.ResolverPlugin(
-        new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])
-      ),
       new webpack.ProvidePlugin({
-        $: 'jquery',
-        jQuery: 'jquery'
+        React: 'react'
       })
     ],
 
     resolve: {
       extensions: ['', '.webpack.js', '.web.js', '.js', '.jsx'],
-      root: [path.join(__dirname, 'bower_components')]
+      root: [
+        path.join(__dirname)
+      ]
     },
 
     module: {
       noParse: [
-        /bower_components/
       ],
 
       preLoaders: [
         {
           test: /\.js$/,
-          exclude: /node_modules|bower_components|twitter-tooltip/,
-          loader: 'jshint'
+          exclude: /node_modules/,
+          loader: 'eslint-loader'
         }
       ],
 
       loaders: [
         {
-          test: /\.js$/,
-          exclude: /node_modules|bower_components/,
-          loader: '6to5-loader'
+          test: /\.jsx?$/,
+          exclude: /node_modules/,
+          loaders: jsxLoaders
+        },
+        {
+          test: /\.gif/,
+          loader: 'url-loader?limit=10000&mimetype=image/gif'
+        },
+        {
+          test: /\.jpg/,
+          loader: 'url-loader?limit=10000&mimetype=image/jpg'
+        },
+        {
+          test: /\.png/,
+          loader: 'url-loader?limit=10000&mimetype=image/png'
+        },
+        {
+          test: /\.svg/,
+          loader: 'url-loader?limit=10000&mimetype=image/svg+xml'
+        },
+        {
+          test: /\.woff$/,
+          loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+        },
+        {
+          test: /\.woff2$/,
+          loader: 'url-loader?limit=10000&mimetype=application/font-woff2'
+        },
+        {
+          test: /\.ttf$/,
+          loader: 'file-loader'
+        },
+        {
+          test: /\.eot$/,
+          loader: 'file-loader'
+        },
+        {
+          test: /\.svg$/,
+          loader: 'file-loader'
         }
       ]
     }
@@ -71,18 +109,23 @@ module.exports = function(production) {
   ];
 
   if (production === false) {
+    config.entry.main.unshift('webpack/hot/only-dev-server');
+    config.entry.main.unshift('webpack-dev-server/client?http://0.0.0.0:9000');
+
     config.cache = true;
     config.debug = true;
-    config.devtool = false;
+    config.devtool = '#cheap-module-eval-source-map';
 
-    config.output.path = path.join(__dirname, './app/assets');
-    config.output.publicPath = 'http://localhost:8080/assets/';
+    config.output.path = path.join(__dirname, './src/public/assets');
+    config.output.publicPath = 'http://0.0.0.0:9000/assets/';
 
     config.plugins = config.plugins.concat([
       new webpack.DefinePlugin({'__DEV__': true}),
       new webpack.NoErrorsPlugin(),
       new webpack.HotModuleReplacementPlugin()
     ]);
+
+    jsxLoaders.unshift('react-hot');
 
     config.module.loaders = config.module.loaders.concat([
       {
@@ -97,9 +140,7 @@ module.exports = function(production) {
   }
 
   if (production === true) {
-    config.entry = './app/scripts/main.js';
-
-    config.output.path = path.join(__dirname, './dist/assets');
+    config.output.path = path.join(__dirname, './dist/public/assets');
 
     config.plugins = config.plugins.concat([
       new webpack.DefinePlugin({

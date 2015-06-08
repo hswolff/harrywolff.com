@@ -1,0 +1,53 @@
+@import "~src/styles/variables.less";
+
+.header {
+  text-align: center;
+  background: @color-header-background;
+  padding-top: 30px;
+}
+
+.header-text {
+  font-size: 3rem;
+  line-height: 4.3rem;
+  display: inline-block;
+}
+
+.header-link {
+  display: inline-block;
+
+  &, &:hover {
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+.header-link-img {
+  border-radius: 100%;
+  width: 150px;
+  height: 150px;
+
+  display: inline-block;
+
+  background-image: url('/images/harrywolff.jpg');
+  background-repeat: no-repeat;
+  background-size: 100%;
+  background-position: 0 0;
+  border: 1px solid #ddd;
+}
+
+@media (max-width: 479px) {
+  .header-link-img {
+    display: block;
+  }
+}
+
+.header-link,
+.header-link-img {
+  vertical-align: middle;
+}
+
+.header-link:hover .header-link-img {
+  opacity: 0.4;
+  border: 1px solid #666;
+  background-image: url('/images/harrywolff-hover.jpg');
+}

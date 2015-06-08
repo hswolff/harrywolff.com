@@ -1,0 +1,44 @@
+.tile-separater {
+
+  .square-box-title {
+    font-size: 2.1rem;
+    color: #fff;
+  }
+
+  &:hover {
+    background: inherit;
+  }
+
+  &.tile-separater-blog {
+    &, &:hover {
+      background-image: url('/images/background_blog.jpg');
+      background-size: 100% 100%;
+    }
+  }
+
+  &.tile-separater-linkroll {
+    &, &:hover {
+      background-image: url('/images/background_linkroll.jpg');
+      background-size: 100% 100%;
+    }
+  }
+}
+
+.blog-post-container {
+  .square-box {
+
+    &:nth-child(3n) {
+      opacity: 0.4;
+      &:hover {
+        opacity: inherit;
+      }
+    }
+
+    &:nth-child(5n) {
+      opacity: 0.5;
+      &:hover {
+        opacity: inherit;
+      }
+    }
+  }
+}
