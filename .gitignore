@@ -3,3 +3,4 @@ dist
 test/bower_components
 npm-debug.log
 .tmp
+sync.sh
