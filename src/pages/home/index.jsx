@@ -13,14 +13,14 @@ class HomePage extends React.Component {
         <div className="col-xs-12 no-gutter blog-post-container">
           <SquareBox
             className="tile-separater tile-separater-blog"
-            title="Blog Posts"
+            title="Blog"
             href="http://blog.hswolff.com/"
           />
           {(this.renderBlogPosts())}
 
           <SquareBox
             className="tile-separater tile-separater-linkroll"
-            title="Linkroll"
+            title="Links"
             href="https://pinboard.in/u:hswolff"
           />
           {(this.renderPinterestPosts())}
