@@ -12,6 +12,14 @@
     "modules": true
   },
   "rules": {
+    "no-bitwise": 1,
+    "camelcase": 0,
+    "wrap-iife": [2, "inside"],
+    "no-use-before-define": 1,
+    "new-cap": 2,
+    "no-caller": 2,
+    "no-trailing-spaces": 2,
+    "dot-notation": 0,
     "quotes": [1, "single"],
     "strict": [2, "global"],
     "no-debugger": 2,
