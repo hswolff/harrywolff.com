@@ -15,7 +15,11 @@
     {% endif %}
   </head>
   <body>
-    <div id="app" data-bootstrap="{{dataBootstrap | json}}">{{content | safe}}</div>
+    <div id="app">{{content | safe}}</div>
+
+    <script>
+    window.__BOOTSTRAP__ = {{dataBootstrap | safe}};
+    </script>
 
     <script>
       (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=

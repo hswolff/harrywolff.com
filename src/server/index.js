@@ -46,10 +46,40 @@ server.connection({
   }
 });
 
+// Register template handler.
+server.register(require('vision'), function(err) {
+  if (err) {
+    throw new Error(err);
+  }
+});
+
+// Register static file handler.
+server.register(require('inert'), function(err) {
+  if (err) {
+    throw new Error(err);
+  }
+});
+
+var Nunjucks = require('nunjucks');
 server.views({
   engines: {
-    html: require('swig')
+    html: {
+      compile: function(src, options) {
+        var template = Nunjucks.compile(src, options.environment);
+
+        return function (context) {
+          return template.render(context);
+        };
+      },
+      prepare: function(options, next) {
+        options.compileOptions.environment = Nunjucks.configure(options.path, {
+          watch: false
+        });
+        return next();
+      }
+    }
   },
+  layoutKeyword: 'views',
   isCached: false,
   path: path.join(__dirname, 'views'),
   partialsPath: './views/partials',
@@ -117,7 +147,10 @@ function memoizeWithTimeout(fn, timeout) {
 }
 
 // Cache data for five minutes.
-fetchDataBootstrap = memoizeWithTimeout(fetchDataBootstrap, 5 * 60 * 1000);
+const cachedFetchDataBootstrap = memoizeWithTimeout(
+  fetchDataBootstrap,
+  5 * 60 * 1000
+);
 
 server.ext('onPreResponse', function(request, reply) {
   if (request.response.statusCode) {
@@ -129,7 +162,7 @@ server.ext('onPreResponse', function(request, reply) {
       return reply.continue();
     }
 
-    fetchDataBootstrap().then(dataBootstrap => {
+    cachedFetchDataBootstrap().then(dataBootstrap => {
       const flux = new Flux();
 
       flux.bootstrap(dataBootstrap);
@@ -145,7 +178,7 @@ server.ext('onPreResponse', function(request, reply) {
         PRODUCTION: process.env.PRODUCTION,
         title: DocumentTitle.rewind(),
         content: content,
-        dataBootstrap
+        dataBootstrap: JSON.stringify(dataBootstrap)
       });
     });
   });

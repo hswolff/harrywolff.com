@@ -8,9 +8,9 @@ import routes from '../routes';
 
 let appEl = document.getElementById('app');
 
-let dataBootstrap = JSON.parse(appEl.dataset.bootstrap);
-
-let flux = new Flux(dataBootstrap);
+let flux = new Flux(
+  window.__BOOTSTRAP__ //eslint-disable-line no-underscore-dangle
+);
 
 Router.run(routes, Router.HistoryLocation, function(Handler) {
   React.render(
